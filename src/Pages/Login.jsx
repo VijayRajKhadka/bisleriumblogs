@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../Css/login.css'; // Import your CSS file
+import { loginUser } from '../services/AuthServices';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -28,6 +29,18 @@ const Login = () => {
             setPasswordError(null);
         }
     };
+
+    const handleLogin = () => {
+        if (usernameError === null && passwordError === null) {
+            const playload = {
+                username: username,
+                password: password
+            }
+            console.log("🚀 ~ handleLogin ~ playload:", playload)
+            loginUser(playload)
+        }
+    }
+
 
 
 
@@ -91,7 +104,7 @@ const Login = () => {
                 </div>
 
                 <br />
-                <button>
+                <button onClick={handleLogin}>
                     <span className="circle1"></span>
                     <span className="circle2"></span>
                     <span className="circle3"></span>

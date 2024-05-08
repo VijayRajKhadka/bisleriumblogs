@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { registerUser } from '../services/AuthServices';
+// import { registerUser } from '../services/AuthServices';
 // import '../Css/login.css';
 
 const Register = () => {
@@ -79,38 +81,25 @@ const Register = () => {
         }
     }
 
+    const handleRegister = () => {
+        validateFirstName(firstName);
+        validateLastName(lastName);
+        validateEmail(email);
+        validateUserName(userName);
+        validatePassword(password);
+        validateConfirmPassword(confirm_password);
 
+        if (firstName && lastName && email && userName && password && confirm_password) {
+            const userData = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                username: userName,
+                password: password
+            };
 
-
-    function registerUser() {
-
-        const userData = {
-            username: `${userName}`,
-            email: email,
-            password: password
-        };
-
-        console.log(userData);
-
-        fetch('https://localhost:7216/api/authenticate/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Registration successful:', data);
-            })
-            .catch(error => {
-                console.error('Error registering user:', error.message);
-            });
+            registerUser(userData);
+        }
     }
 
 
@@ -241,7 +230,7 @@ const Register = () => {
                     </div>
                 </div>
                 <br />
-                <button style={{ width: "470px" }} onClick={registerUser}>
+                <button style={{ width: "470px" }} onClick={handleRegister}>
                     <span className="circle1"></span>
                     <span className="circle2"></span>
                     <span className="circle3"></span>
