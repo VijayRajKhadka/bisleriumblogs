@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../Css/login.css'; // Import your CSS file
+import '../Css/login.css';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
