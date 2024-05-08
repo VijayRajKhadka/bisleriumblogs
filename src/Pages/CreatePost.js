@@ -72,6 +72,24 @@ const CreatePost = () => {
                         console.log('Uploaded a blob or file!', snapshot);
                         imageUrl = await getDownloadURL(imgRef);
                         console.log("🚀 ~ .then ~ imageUrl:", imageUrl)
+                        const payload =
+                        {
+                            title: title,
+                            content: content,
+                            image: imageUrl,
+                            postedBy: "Bislerium",
+                            score: 0,
+                            postedOn: "2021-10-10",
+                            comments: 4,
+                            id: 1,
+                            likedByMe: true,
+                            savedByMe: true,
+
+                        }
+                        console.log("🚀 ~ handleCreatePost ~ payload:", payload)
+
+                        addBlog(payload);
+                        handelClear();
 
                     })
                     .catch((error) => {
@@ -80,24 +98,29 @@ const CreatePost = () => {
 
 
 
+            } else {
+                const payload =
+                {
+                    title: title,
+                    content: content,
+                    image: imageUrl,
+                    postedBy: "Bislerium",
+                    score: 0,
+                    postedOn: "2021-10-10",
+                    comments: 4,
+                    id: 1,
+                    likedByMe: true,
+                    savedByMe: true,
+
+                }
+                console.log("🚀 ~ handleCreatePost ~ payload:", payload)
+
+                addBlog(payload);
+                handelClear()
             }
 
 
-            const payload =
-            {
-                title: title,
-                content: content,
-                image: null,
-                postedBy: "Bislerium",
-                score: 0,
-                postedOn: "2021-10-10",
-                comments: 4,
-                id: 1,
-                likedByMe: true,
-                savedByMe: true,
 
-            }
-            addBlog(payload);
 
         } else {
             console.log('Validation failed');

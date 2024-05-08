@@ -13,6 +13,7 @@ const Home = () => {
 
     useEffect(() => {
         // console.log(GlobalService.blogs);
+        console.log(getLocalStorageItem('blogs'));
         setBlogs(getLocalStorageItem('blogs') || []);
     }, [])
 
@@ -31,7 +32,7 @@ const Home = () => {
                         return <PostCard
                             title={blog.title}
                             content={blog.content}
-                            imageUrl={blog.imageUrl}
+                            imageUrl={blog.image}
                             postedBy={blog.postedBy}
                             postedOn={blog.postedOn}
                             score={blog.score}
