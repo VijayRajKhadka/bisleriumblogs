@@ -87,7 +87,7 @@ const CreatePost = () => {
                         {
                             title: title,
                             content: content,
-                            userId: "9adc64a9-c540-4ee2-ac91-c280e22a61f4",
+                            userId: getLocalStorageItem('userId').replace(/"/g, ''),
                             images: [
                                 { imageLink: imageUrl },
                             ]
@@ -110,7 +110,7 @@ const CreatePost = () => {
                 {
                     title: title,
                     content: content,
-                    userId: '9adc64a9-c540-4ee2-ac91-c280e22a61f4',
+                    userId: getLocalStorageItem('userId').replace(/"/g, ''),
                     images: [
                     ]
                 }

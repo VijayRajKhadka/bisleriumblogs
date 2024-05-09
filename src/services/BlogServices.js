@@ -177,3 +177,20 @@ export const getCommentsWithReply = (id) => {
         }
     });
 }
+
+export const deleteBLog = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.delete(`${GlobalService.baseUrl}blogs/delete/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+            resolve(response)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}

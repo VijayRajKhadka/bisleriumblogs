@@ -12,11 +12,15 @@ import GlobalService from "../services/GlobalService";
 import { useParams } from "react-router-dom";
 import {
   commentOnBlog,
+  deleteBLog,
   getAllComments,
   getBlogDetails,
 } from "../services/BlogServices";
 import { get } from "firebase/database";
 import { getLocalStorageItem } from "../services/LocalStorageService";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const BlogDetails = () => {
   // const data = props.location.state.data;
@@ -42,6 +46,8 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
+
+
     console.log(id);
     setBlogId(id);
 
@@ -55,6 +61,9 @@ const BlogDetails = () => {
   }, [id]); // Run this effect whenever id changes
 
   const handleComment = () => {
+    console.log(blogDetails.user.userId == getLocalStorageItem("userId").replace(/"/g, ""));
+    console.log(blogDetails.user.userId);
+    console.log(getLocalStorageItem("userId"));
     if (validateComment()) {
       console.log(
         "🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ comment",
@@ -80,13 +89,48 @@ const BlogDetails = () => {
     }
   };
 
+  const handleDelete = () => {
+    deleteBLog(id).then(
+      (res) => {
+        if (res && res.status === 200) {
+          toast.success('Deletion Successful!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            // transition: Bounce,
+          });
+
+          window.location.href = '/'
+
+        } else {
+          toast.error('Login Failed!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            // transition: Bounce,
+          });
+        }
+      }
+    );
+  }
+
   return (
     <div>
       <NavBar />
       <SideBar />
       {blogDetails ? (
         <div className="content">
-          <div className="blog-main-container">
+          <div className="blog-main-container h-screen">
             <div className="blog-container">
               <div className="head-container">
                 <div
@@ -101,7 +145,7 @@ const BlogDetails = () => {
                   <p className="post-date">3 days ago</p>
                 </div>
 
-                {blogDetails.user.userId == getLocalStorageItem("userId") ? (
+                {blogDetails.user.userId == getLocalStorageItem("userId").replace(/"/g, "") ? (
                   <div style={{ display: "flex" }}>
                     <div className="edit-blog">
                       <svg
@@ -119,7 +163,7 @@ const BlogDetails = () => {
                         />
                       </svg>
                     </div>
-                    <div className="delete-blog">
+                    <div className="delete-blog" onClick={handleDelete}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -236,6 +280,7 @@ const BlogDetails = () => {
               <p className="blog-user-bio">{blogDetails.user.bio}</p>
             </div>
           </div>
+          <ToastContainer />
         </div>
       ) : (
         <div>Loading...</div>

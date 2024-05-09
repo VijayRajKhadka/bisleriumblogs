@@ -99,7 +99,17 @@ const Register = () => {
                 password: password
             };
 
-            registerUser(userData);
+            registerUser(userData).then((res) => {
+                if (res && res == true) {
+                    alert('Registration Successful!');
+                    window.location.href = '/login';
+                } else {
+                    alert('Registration Failed!');
+                }
+            }).catch((err) => {
+                console.log(err);
+                alert('Registration Failed!');
+            });
         }
     }
     return (
