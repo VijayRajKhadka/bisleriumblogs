@@ -142,6 +142,7 @@ export default class admindashboard extends Component {
                 </div>
               </div>
             </div>
+            
           </main>
           {/* End Main */}
         </div>
