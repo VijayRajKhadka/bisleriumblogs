@@ -3,6 +3,10 @@ import '../Css/login.css';
 import { loginUser } from '../services/AuthServices';
 import NavBar from '../Components/NavBar';
 import SideBar from '../Components/SideBar';
+import { set } from 'firebase/database';
+import { Alert } from 'bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +42,54 @@ const Login = () => {
                 password: password
             }
             console.log("🚀 ~ handleLogin ~ playload:", playload)
-            loginUser(playload)
+            loginUser(playload).then((res) => {
+                if (res && res == true) {
+
+                    toast.success('Login Successful!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        // transition: Bounce,
+                    });
+
+                    // window.location.href = '/';
+                    // setUsername('');
+                    // setPassword('');
+
+
+                } else {
+                    toast.error('Login Failed!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        // transition: Bounce,
+                    });
+
+                }
+            }).catch((err) => {
+                console.log(err);
+                toast.error('Login Failed!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition: Bounce,
+                });
+            });
         }
     }
 
@@ -51,6 +102,7 @@ const Login = () => {
     return (
         <div>
             <NavBar />
+
             <SideBar />
             <div className='login-page-container'>
                 <div className='login-container'>
@@ -120,8 +172,11 @@ const Login = () => {
                     <div className='no-account'>
                         <p>Don't Have Account yet? <a href="/register" className="menu__link">Register!</a> </p>
                     </div>
+                    <ToastContainer />
+
                 </div>
             </div>
+
         </div>
 
     );

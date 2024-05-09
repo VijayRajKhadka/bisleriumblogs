@@ -11,6 +11,11 @@ const NavBar = () => {
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
+
+    const handleLogout = () => {
+        localStorage.clear();
+        window.location.href = '/';
+    }
     return <nav className="home-top-nav z-10">
         <div className="left-section">
             <a href="#" className="logo-name">
@@ -25,17 +30,18 @@ const NavBar = () => {
             </a>
             <div className="dropdown" onClick={toggleDropdown}>
                 <img className="profile-pic" src={User} alt="" />
-                {isDropdownOpen && getLocalStorageItem('userToken') ? (
-                    <div className="dropdown-content">
+                {isDropdownOpen && (
+
+                    (getLocalStorageItem('token')) ? <div className="dropdown-content">
                         <a href="#">Profile</a>
                         <a href="#">Change Password</a>
-                        <a href="#" style={{ color: "red" }}>Logout</a>
+                        <a href="#" style={{ color: "red" }} onClick={handleLogout} >Logout</a>
+                    </div> : <div className="dropdown-content">
+                        <a href="/login">LogIn</a>
+                        <a href="/register">Register</a>
+                        {/* <a href="#" style={{ color: "red" }}>Logout</a> */}
                     </div>
-                ) : <div className="dropdown-content">
-                    <a href="/login">LogIn</a>
-                    <a href="/register">Register</a>
-                    {/* <a href="#" style={{ color: "red" }}>Logout</a> */}
-                </div>
+                )
                 }
             </div>
         </div>

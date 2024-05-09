@@ -1,11 +1,15 @@
 import { useState } from "react";
 import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
-import { set } from "firebase/database";
+import { get, set } from "firebase/database";
 import { addBlog } from "../services/BlogServices";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { uploadPhoto } from "../config/Config";
+import { getLocalStorageItem } from "../services/LocalStorageService";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const CreatePost = () => {
     //textFields Values
@@ -58,6 +62,11 @@ const CreatePost = () => {
     }
 
     const handleCreatePost = () => {
+        var success = false;
+        if (getLocalStorageItem('token') === null) {
+            alert("Please Login First");
+            return;
+        }
 
         if (titleValidator(title) && contentValidator(content) && imageValidator(image)) {
             var imageUrl = null;
@@ -76,19 +85,15 @@ const CreatePost = () => {
                         {
                             title: title,
                             content: content,
-                            image: imageUrl,
-                            postedBy: "Bislerium",
-                            score: 0,
-                            postedOn: "2021-10-10",
-                            comments: 4,
-                            id: 1,
-                            likedByMe: true,
-                            savedByMe: true,
-
+                            userId: '9adc64a9-c540-4ee2-ac91-c280e22a61f4',
+                            images: [
+                                { imageLink: imageUrl },
+                            ]
                         }
                         console.log("🚀 ~ handleCreatePost ~ payload:", payload)
 
-                        addBlog(payload);
+                        success = await addBlog(payload);
+
                         handelClear();
 
                     })
@@ -103,20 +108,40 @@ const CreatePost = () => {
                 {
                     title: title,
                     content: content,
-                    image: imageUrl,
-                    postedBy: "Bislerium",
-                    score: 0,
-                    postedOn: "2021-10-10",
-                    comments: 4,
-                    id: 1,
-                    likedByMe: true,
-                    savedByMe: true,
-
+                    userId: '9adc64a9-c540-4ee2-ac91-c280e22a61f4',
+                    images: [
+                    ]
                 }
                 console.log("🚀 ~ handleCreatePost ~ payload:", payload)
 
-                addBlog(payload);
+                success = addBlog(payload);
                 handelClear()
+            }
+
+            if (success) {
+                toast.success(' Successful!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition: Bounce,
+                });
+            } else {
+                toast.error('Login Failed!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition: Bounce,
+                });
             }
 
 
@@ -124,6 +149,17 @@ const CreatePost = () => {
 
         } else {
             console.log('Validation failed');
+            toast.error('Login Failed!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                // transition: Bounce,
+            });
         }
     }
 
@@ -168,6 +204,7 @@ const CreatePost = () => {
 
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
 }
