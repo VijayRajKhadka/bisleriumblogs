@@ -1,7 +1,7 @@
 .card-container{
     width: 60%;
     margin: 20px;
-    background-color: rgb(52, 51, 51);
+    background-color: rgb(28, 28, 28);
     border-radius: 10px;
     padding: 10px;
     
@@ -26,12 +26,11 @@
     display: flex;
     align-items: center;
     color: white;
-    margin-left: 50px;
     padding-bottom: 10px;
 
 }
 .feed-box{
-    background-color: rgb(120, 117, 117);
+    background-color: transparent;
     padding: 6px;
     border-radius: 10px;
     margin-right: 5px;
@@ -39,11 +38,11 @@
 .post-feed p {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .card-container:hover{
-    background-color: rgb(72, 72, 72);
+    background-color: rgb(42, 41, 41);
     cursor: pointer;
 }
 .user-name{

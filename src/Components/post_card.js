@@ -2,7 +2,9 @@ import React from "react";
 import "../Css/post_card.css";
 import User from "../Assets/Images/user.png";
 import Image1 from "../Assets/Images/login_background.jpg";
-function post_card() {
+
+
+const post_card=()=> {
   return (
     <div>
       <div className="card-container">
@@ -33,7 +35,7 @@ function post_card() {
           </p>
           <img src={Image1} className="image-container"></img>
         </div>
-        <div className="post-feed">
+        <div className="post-feed" style={{marginLeft:"50px"}}>
           <div className="feed-box">
             <p>
               <svg

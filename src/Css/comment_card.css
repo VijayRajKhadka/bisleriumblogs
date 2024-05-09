@@ -1,0 +1,14 @@
+.user-comment-container{
+    display: flex;
+}
+.user-comment{
+    margin-left: 45px;
+    text-align: justify;
+    font-size: 15px;
+    color: rgb(221, 218, 218);
+}
+.comment-date{
+    margin-left: 10px;
+    color: gray;
+    font-weight: 300;
+}
