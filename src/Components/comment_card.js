@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Css/comment_card.css";
 import User from "../Assets/Images/user.png";
+import { getCommentsWithReply, replyOnComment } from "../services/BlogServices";
+import { getLocalStorageItem } from "../services/LocalStorageService";
 
 const CommentCard = (props) => {
     const [showReplyCommentBox, setshowReplyCommentBox] = useState(false);
     const [showSeeMore, setshowSeeMore] = useState(false);
+    const [replies, setReplies] = useState([])
+    const [replyValue, setReplyValue] = useState("");
+
+
+    useEffect(()=>{
+
+        console.log(props.comment.commentId);
+        getCommentsWithReply(props.comment.commentId).then(
+            (res) => {
+            console.log("🚀 ~ useEffect ~ res:", res)
+            setReplies(res);
+
+           
+                
+            }
+        );
+
+
+    },[]);
 
     
     const handleToggleReplyBox = () => {
@@ -14,6 +35,36 @@ const CommentCard = (props) => {
     const handleSeeReplies = () => {
         setshowSeeMore(!showSeeMore); 
     };
+
+    const handleReply = () =>{
+        console.log(getLocalStorageItem("userId"))
+        if(replyValue && replyValue != ""){
+            var payload = {
+                commentId: props.comment.commentId,
+                data: {
+                    "replyContent": replyValue,
+                    "userId": getLocalStorageItem("userId").replace(/"/g, ""),
+                }
+            }
+            console.log("🚀 ~ handleReply ~ payload:", payload)
+            replyOnComment(payload).then(
+                (res)=>{
+                    if(res){
+                        getCommentsWithReply(props.comment.commentId).then(
+                            (res) => {
+                            console.log("🚀 ~ useEffect ~ res:", res)
+                            setReplies(res);
+                            }
+                        );
+                        setshowReplyCommentBox(false);
+                        setshowSeeMore(true);
+                    }
+                }
+            )
+                
+            
+        }
+    }
 
 
     return (
@@ -68,8 +119,11 @@ const CommentCard = (props) => {
                
                 <div className="comment-box" style={{ marginLeft: "40px" }}>
                      <p className="close-x-button" onClick={handleToggleReplyBox}>X</p>
-                    <textarea placeholder="Write a comment" className="comment-input"> </textarea>
-                    <button className="comment-button">Reply</button>
+                    <textarea placeholder="Write a comment" className="comment-input" onChange={(e)=>{
+                        console.log(e.target.value)
+                        setReplyValue(e.target.value)
+                    }}> </textarea>
+                    <button className="comment-button" onClick={handleReply}>Reply</button>
                     <br/>
                     <br/>
                     <br/>
@@ -80,28 +134,21 @@ const CommentCard = (props) => {
             <br/>
             {showSeeMore &&(
                 <>
-                <div className="comment-reply">
-                <div className="user-comment-container">
-                    <img className="profile-pic" src={User} alt="" />
-                    <p className="user-name">{props.comment.user.userName}</p>
-                    <p className="comment-date">3h ago</p>
-                </div>
-                
-                <p className="user-comment">{props.comment.commentContent}</p>
-                <div className="post-feed" style={{ marginLeft: "40px" }}>
-                </div>
-                </div>
-                <div className="comment-reply">
-                <div className="user-comment-container">
-                    <img className="profile-pic" src={User} alt="" />
-                    <p className="user-name">{props.comment.user.userName}</p>
-                    <p className="comment-date">3h ago</p>
-                </div>
-                
-                <p className="user-comment">{props.comment.commentContent}</p>
-                <div className="post-feed" style={{ marginLeft: "40px" }}>
-                </div>
-                </div>
+                { replies[0].replies.map(
+                    (reply)=>{
+                        return <div className="comment-reply">
+                        <div className="user-comment-container">
+                            <img className="profile-pic" src={User} alt="" />
+                            <p className="user-name">{props.comment.user.userName}</p>
+                            <p className="comment-date">3h ago</p>
+                        </div>
+
+                        <p className="user-comment">{reply.commentContent}</p>
+                        <div className="post-feed" style={{ marginLeft: "40px" }}>
+                        </div>
+                        </div>
+                    }
+                )}
                 </>
                 
             )}

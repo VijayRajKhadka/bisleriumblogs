@@ -138,7 +138,7 @@ export const getAllComments = (id) => {
 
 
 
-const replyOnComment = (payload) => {
+export const replyOnComment = (payload) => {
     // {
     //     commentId: 1,
     //     data: {
@@ -148,7 +148,7 @@ const replyOnComment = (payload) => {
     // }
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await axios.post(`${GlobalService.baseUrl}commnets/reply/${payload.commentId}`, payload.data, {
+            const response = await axios.post(`${GlobalService.baseUrl}comments/reply/${payload.commentId}`, payload.data, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
@@ -162,7 +162,7 @@ const replyOnComment = (payload) => {
 }
 
 
-const getCommentsWithReply = (id) => {
+export const getCommentsWithReply = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
             const response = await axios.get(`${GlobalService.baseUrl}commentWithReplies/${id}`, {
