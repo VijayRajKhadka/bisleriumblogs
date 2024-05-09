@@ -1,21 +1,27 @@
 import './App.css';
+import CreatePost from './Pages/CreatePost';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 
-import { Routes ,Route, BrowserRouter} from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import SavedBlogs from './Pages/SavedBlogs';
+import MyBlogs from './Pages/MyBlogs';
 
 const App = () => {
   return (
     <>
-    <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path='/login' element={<Login/>}/>
-      <Route path='/register' element={<Register/>}/>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/create' element={<CreatePost />} />
+          <Route path='/saved' element={<SavedBlogs />} />
+          <Route path='/my-blogs' element={<MyBlogs />} />
 
-    </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };

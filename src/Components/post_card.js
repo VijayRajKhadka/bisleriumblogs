@@ -33,7 +33,9 @@ const PostCard = (props) => {
           <p>
             {props.content}
           </p>
-          <img src={props.imageUrl} className="image-container"></img>
+          {
+            props.imageUrl != "" ? <img src={props.imageUrl} className="image-container"></img> : null
+          }
         </div>
         <div className="post-feed">
           <div className="feed-box">
