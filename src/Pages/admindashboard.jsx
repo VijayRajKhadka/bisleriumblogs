@@ -141,10 +141,72 @@ export default class admindashboard extends Component {
                   />
                 </div>
               </div>
+              <div className="charts-card">
+                <h2 className="chart-title">Top 5 Products</h2>
+                <div className="dataCard customerCard">
+                  <Bar
+                    data={{
+                      labels: sourceData.map((data) => data.label),
+                      datasets: [
+                        {
+                          label: "Count",
+                          data: sourceData.map((data) => data.value),
+                          backgroundColor: [
+                            "rgba(43, 63, 229, 0.8)",
+                            "rgba(250, 192, 19, 0.8)",
+                            "rgba(253, 135, 135, 0.8)",
+                          ],
+                          borderRadius: 5,
+                        },
+                      ],
+                    }}
+                    options={{
+                      plugins: {
+                        title: {
+                          text: "Revenue Source",
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="charts-card">
+                <h2 className="chart-title">Purchase and Sales Orders</h2>
+                <Doughnut
+                data={{
+                    labels: sourceData.map((data) => data.label),
+                    datasets: [
+                        {
+                            label: "Count",
+                            data: sourceData.map((data) => data.value),
+                            backgroundColor: [
+                                "rgba(43, 63, 229, 0.8)",
+                                "rgba(250, 192, 19, 0.8)",
+                                "rgba(253, 135, 135, 0.8)",
+                            ],
+                            borderRadius: 5,
+                        },
+                    ],
+                }}
+                options={{
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Revenue Source",
+                        },
+                    },
+                    aspectRatio: 1, // Adjust aspect ratio to make it circular
+                    responsive: true, // Make it responsive
+                }}
+            />
+
+              </div>
             </div>
           </main>
           {/* End Main */}
         </div>
+        
       </div>
     );
   }
