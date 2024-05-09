@@ -3,6 +3,7 @@ import CreatePost from './Pages/CreatePost';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import BlogDetails from './Pages/BlogDetails';
 
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import SavedBlogs from './Pages/SavedBlogs';
@@ -19,11 +20,17 @@ const App = () => {
           <Route path='/create' element={<CreatePost />} />
           <Route path='/saved' element={<SavedBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/blog-details' element={<BlogDetails />} />
 
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+            </Routes>
+          </BrowserRouter>
+        </>
+        );
 };
 
-export default App;
+        export default App;

@@ -3,10 +3,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #1a1919;
+    background-color: #0F1013;
     color: white;
     position: sticky;
     top: 0;
+    border-bottom: 1px solid rgb(81, 80, 80);
+    z-index: 9999;
+}
+.notification-icon svg:hover{
+    fill: #66FCF1;
 }
 
 .left-section {
@@ -45,15 +50,15 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #1a1919;
+    background-color: #0F1013;
+    border-radius: 20px !important;
     min-width: 180px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 9999; 
+    top: 100%; 
     right: 0; 
-    max-width: 200px; 
+    max-width: 200px;
     padding-top: 10px;
-
-
 }
 
 .dropdown-content a {
@@ -75,19 +80,20 @@
 }
 
 .sidebar {
-    width: 17%; /* Adjust width as needed */
-    background-color: #252424;
+    width: 17%;
+    background-color: #0F1013;
     padding: 20px;
     height: 100%;    
     position: fixed;
     color: white;
+    border-right: 1px solid rgb(81, 80, 80);
 }
 
 .content {
     margin-left: 17%;
     width: 83%;
     height: 100%;
-    background-color: #262525;
+    background-color: #0F1013;
     overflow-y: scroll;
     scrollbar-width: none;
 
@@ -129,7 +135,7 @@ nav ul li i {
     margin-bottom: 20px;
 }
 .create-button:hover{
-    border-color: rgb(250, 250, 250);
+    border-color: #66FCF1;
     transition: 5;
     cursor: pointer;
 }

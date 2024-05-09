@@ -1,12 +1,7 @@
 import "../Css/post_card.css";
 import User from "../Assets/Images/user.png";
 import Image1 from "../Assets/Images/login_background.jpg";
-import React from "react";
-import { useState } from "react";
-import { set } from "firebase/database";
-
-const PostCard = (props) => {
-  const [score, setScore] = useState(props.score);
+function post_card() {
   return (
     <div>
       <div className="card-container">
@@ -37,7 +32,7 @@ const PostCard = (props) => {
             props.imageUrl != "" ? <img src={props.imageUrl} className="image-container"></img> : null
           }
         </div>
-        <div className="post-feed">
+        <div className="post-feed" style={{ marginLeft: "50px" }}>
           <div className="feed-box">
             <p>
               <svg
