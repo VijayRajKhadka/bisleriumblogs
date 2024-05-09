@@ -5,7 +5,6 @@ import PostCard from "../Components/post_card";
 
 import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
-import { getLocalStorageItem } from "../services/LocalStorageService";
 import { getAllBlogs } from "../services/BlogServices";
 const Home = () => {
     const [blogs, setBlogs] = useState([])
@@ -32,6 +31,8 @@ const Home = () => {
                 else {
                     setMoreData(false);
                 }
+
+
             }
             catch (error) {
                 console.error('Error fetching data:', error);

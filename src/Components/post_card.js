@@ -1,20 +1,21 @@
 import "../Css/post_card.css";
 import User from "../Assets/Images/user.png";
 import Image1 from "../Assets/Images/login_background.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 const PostCard = (props) => {
   const [score, setScore] = useState(0);
   const [id, setId] = useState(0);
 
   useEffect(() => {
-    // console.log(props.id);
+    console.log("helsfjas;odfa;u");
+    console.log(props.id);
     setId(props.id);
 
   }, []);
   return (
     <div>
-      <Link to='/blog-detail'>
+      <Link to={{ pathname: `/blog-detail/${id}` }}>
         <div className="card-container">
           <div className="head-container">
             <div style={{ display: "flex", alignContent: "center", alignItems: "center" }}>

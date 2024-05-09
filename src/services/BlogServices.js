@@ -18,7 +18,7 @@ export const addBlog = (payload) => {
         console.log("🚀 ~ addBlog ~ payload:", payload);
         try {
             const response = await axios.post(
-                `https://localhost:7216/api/blogs/create`,
+                `${GlobalService.baseUrl}blogs/create`,
                 payload,
                 {
                     headers: {
@@ -28,9 +28,11 @@ export const addBlog = (payload) => {
                     }
                 });
             console.log("🚀 ~ returnnewPromise ~ response:", response)
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
             if (
                 response.data.status == 'Success'
             ) {
+                console.log("🚀 ~ returnnewPromise ~ response:", response)
                 resolve(true);
             } else {
                 resolve(false);
@@ -60,7 +62,73 @@ export const getAllBlogs = (page) => {
 
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await axios.get(`https://localhost:7216/api/blogs/getAll?page=${page}`);
+            const response = await axios.get(`${GlobalService.baseUrl}blogs/getAll?page=${page}`);
+            resolve(response.data)
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+        } catch (error) {
+
+        }
+    });
+}
+
+
+export const getBlogDetails = (id) => {
+    return new Promise(async (resolve, reject) => {
+        console.log("🚀 ~ file: BlogServices.js ~ line 100 ~ returnnewPromise ~ id", id)
+        console.log("🚀 ~ file: BlogServices.js ~ line 100 ~ returnnewPromise ~ id", getLocalStorageItem('token').replace(/"/g, ""))
+        try {
+            const response = await axios.get(`${GlobalService.baseUrl}blogs/get/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                    // Use global replace (/"/g) to remove all quotes from the token
+                }
+            });
+
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+
+
+
+            resolve(response.data)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}
+
+export const commentOnBlog = (payload) => {
+    console.log("🚀 ~ commentOnBlog ~ payload:", payload)
+    console.log("🚀 ~ commentOnBlog ~ payload:", payload.blogId)
+    console.log("🚀 ~ commentOnBlog ~ payload:", payload.data)
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.post(`${GlobalService.baseUrl}blogs/${payload.blogId}/comments`, payload.data, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            resolve(response.data)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}
+
+export const getAllComments = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.get(`${GlobalService.baseUrl}blogs/${id}/allComments`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+            console.log("🚀 ~ returnnewPromise ~ response.data:", response.data)
+
+
             resolve(response.data)
         } catch (error) {
             console.error(error);

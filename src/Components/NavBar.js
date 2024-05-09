@@ -32,11 +32,11 @@ const NavBar = () => {
                 <img className="profile-pic" src={User} alt="" />
                 {isDropdownOpen && (
 
-                    (getLocalStorageItem('token')) ? <div className="dropdown-content">
+                    (getLocalStorageItem('token')) ? <div className="dropdown-content z-10">
                         <a href="#">Profile</a>
                         <a href="#">Change Password</a>
                         <a href="#" style={{ color: "red" }} onClick={handleLogout} >Logout</a>
-                    </div> : <div className="dropdown-content">
+                    </div> : <div className="dropdown-content z-10">
                         <a href="/login">LogIn</a>
                         <a href="/register">Register</a>
                         {/* <a href="#" style={{ color: "red" }}>Logout</a> */}
