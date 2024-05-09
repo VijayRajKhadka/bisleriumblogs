@@ -4,15 +4,57 @@ import "../Css/ad.css";
 
 import { chart as charts } from "chart.js/auto";
 
+import { Line } from 'react-chartjs-2';
+
 import { Bar, Doughnut, line } from "react-chartjs-2";
 
 import sourceData from "./data/sourceData.json";
 import Sidebar from "./AdminSidebar";
 
+import {
+  Chart as ChartJS,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Legend,
+  Tooltip
+} from 'chart.js';
+
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Legend,
+  Tooltip
+)
 
 export default class admindashboard extends Component {
   render() {
+    const data = {
+      labels: ['mon','tue','wed'],
+      datasets: [{
+          label: 'Sales of the Week',
+          data: [6,3,9],
+          backgroundColor: 'aqua',
+          borderColor: 'black',
+          pointBorderColor: 'aqua',
+          fill: true,
+          tension: 0.4
+      }]
+  }
 
+  const options = {
+      plugins: {
+          legend: true
+      },
+      scales: {
+          y: {
+
+          }
+      }
+  }
 
     return (
       <div>
@@ -64,7 +106,17 @@ export default class admindashboard extends Component {
               </div>
               
             </div>
-
+            <div className="charts">
+            <div className="charts-card">
+                <h2 className="chart-title">Top 5 Products</h2>
+                <div className="dataCard customerCard">
+                  <Line
+                    data = {data}
+                    options = {options}
+                  />
+                </div>
+              </div>
+              </div>
         
           </main>
           {/* End Main */}
