@@ -67,28 +67,3 @@
     color: white;
 }
 
-.comment-button{
-    background-color: #66FCF1;
-    font-size: 14px;
-    padding: 5px;
-    width: 90px;
-    height: 40px;
-    border-radius: 15px;
-    float: right;
-    margin-top: 10px;
-    color: black;
-}
-
-.view-more-comment-button{
-    display: flex;
-    align-items: center;
-    background-color: #66FCF1;
-    font-size: 15px;
-    padding: 5px;
-    width: 180px;
-    height: 40px;
-    border-radius: 15px;
-    margin-top: 10px;
-    color: black;
-    font-weight: 300;
-}
