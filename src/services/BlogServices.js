@@ -7,7 +7,7 @@ export const addBlog = (payload) => {
 
     return new Promise(async (resolve, reject) => {
 
-        console.log(getLocalStorageItem('token'));
+        console.log(getLocalStorageItem('token').replace(/"/g, ""));
         const options = {
             headers: {
                 "Content-Type": "application/json",
@@ -15,7 +15,6 @@ export const addBlog = (payload) => {
                 // Use global replace (/"/g) to remove all quotes from the token
             }
         };
-        console.log("🚀 ~ addBlog ~ options:", options);
         console.log("🚀 ~ addBlog ~ payload:", payload);
         try {
             const response = await axios.post(
@@ -28,16 +27,14 @@ export const addBlog = (payload) => {
                         // Use global replace (/"/g) to remove all quotes from the token
                     }
                 });
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
             if (
                 response.data.status == 'Success'
             ) {
-
                 resolve(true);
             } else {
                 resolve(false);
             }
-
-
             console.log(response);
         } catch (error) {
             console.error(error);
