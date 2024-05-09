@@ -11,6 +11,7 @@ import MyBlogs from './Pages/MyBlogs';
 
 
 import Admindashboard from './Pages/admindashboard';
+import Admins from './Pages/Admin';
 
 
 const App = () => {
@@ -26,6 +27,8 @@ const App = () => {
           <Route path='/my-blogs' element={<MyBlogs />} />
           <Route path='/blog-detail' element={<BlogDetails />} />
           <Route path="/admindashboard" element={<Admindashboard/>}/>
+          <Route path='/admin' element={<Admins/>}/>
+
         </Routes>
       </BrowserRouter>
     </>
