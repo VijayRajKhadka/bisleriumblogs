@@ -9,6 +9,10 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import SavedBlogs from './Pages/SavedBlogs';
 import MyBlogs from './Pages/MyBlogs';
 
+
+import Admindashboard from './Pages/admindashboard';
+
+
 const App = () => {
   return (
     <>
@@ -21,6 +25,7 @@ const App = () => {
           <Route path='/saved' element={<SavedBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
           <Route path='/blog-detail' element={<BlogDetails />} />
+          <Route path="/admindashboard" element={<Admindashboard/>}/>
         </Routes>
       </BrowserRouter>
     </>
