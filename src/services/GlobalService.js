@@ -1,53 +1,8 @@
 export default {
     blogs: [
-        {
-            title: "My first blog",
-            content: "This is mion_23-2150527121.jpg?size=626&e",
-            imageUrl: "https://img.freepik.com/free-vector/flat-design-no-data-illustration_23-2150527121.jpg?size=626&ext=jpg",
-            postedBy: "Vijay Raj Khadka",
-            score: 0,
-            postedOn: "2021-10-10",
-            comments: 4,
-            id: 1,
-            likedByMe: true,
-            savedByMe: true,
-        },
-        {
-            title: "My second blog",
-            content: "This is my second blog",
-            imageUrl: null,
-            postedBy: "Prasanna Bhattarai",
-            score: 0,
-            postedOn: "2021-10-10",
-            comments: 4,
-            id: 2,
-            likedByMe: true,
-            savedByMe: true,
-        },
-        {
-            title: "My third blog",
-            content: "This is my third blog",
-            imageUrl: null,
-            postedBy: "Kishan Raj Malla",
-            score: 0,
-            postedOn: "2021-10-10",
-            comments: 4,
-            id: 3,
-            likedByMe: true,
-            savedByMe: true,
-        },
-        {
-            title: "My fourth blog",
-            content: "This is my fourth blog",
-            imageUrl: null,
-            postedBy: "Pramit Badgami",
-            score: 0,
-            postedOn: "2021-10-10",
-            comments: 4,
-            id: 4,
-            likedByMe: true,
-            savedByMe: true,
-        },
-    ]
+
+    ],
+    selectedBlog: null,
+    baseUrl: 'https://localhost:7216/api/',
 
 }
