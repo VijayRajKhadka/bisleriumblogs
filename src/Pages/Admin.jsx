@@ -14,6 +14,7 @@ export default class Admins extends Component {
         <Sidebar/>
 
         <main className="main-container">
+          <button className='admin-add'>Add Admin</button>
         <table>
             <thead>
                 <tr>

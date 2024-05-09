@@ -90,3 +90,10 @@ and also iPads specifically. */
     font-weight: bold;
   }
 }
+
+.admin-add{
+  background-color: lightblue;
+  width: 12%;
+  height: 12%;
+
+}
