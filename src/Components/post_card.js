@@ -5,6 +5,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 const PostCard = (props) => {
   const [score, setScore] = useState(0);
+  const [id, setId] = useState(0);
+
+  useEffect(() => {
+    // console.log(props.id);
+    setId(props.id);
+
+  }, []);
   return (
     <div>
       <Link to='/blog-detail'>
