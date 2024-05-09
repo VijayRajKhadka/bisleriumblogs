@@ -1,18 +1,19 @@
 import React from "react";
 import { useEffect } from "react";
 import PostCard from "../Components/post_card";
-import SideBar from "../Components/side_bar";
+import SideBar from "../Components/SideBar";
 import TopNav from "../Components/top_nav";
 import User from "../Assets/Images/user.png";
 import CommentCard from "../Components/comment_card";
 import "../Css/blog_details.css";
 import Image1 from "../Assets/Images/login-background.jpg";
-const BlogDetails = () => {
+import NavBar from "../Components/NavBar";
+
+const BlogDetails = (props) => {
   return (
     <div>
-      <TopNav />
+      <NavBar />
       <SideBar />
-
       <div className="content">
         <div className="blog-main-container">
           <div className="blog-container">
@@ -48,74 +49,74 @@ const BlogDetails = () => {
                 this move The Formula 1 Shot.
               </p>
               <img src={Image1} className="image-container"></img>
-            <br/>
+              <br />
               <div className="post-feed">
                 <div className="vote-box">
-                    <p>
+                  <p>
                     <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="white"
-                        class="bi bi-caret-up"
-                        viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="white"
+                      class="bi bi-caret-up"
+                      viewBox="0 0 16 16"
                     >
-                        <path d="M3.204 11h9.592L8 5.519zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659" />
+                      <path d="M3.204 11h9.592L8 5.519zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659" />
                     </svg>{" "}
                     52k
-                    </p>
+                  </p>
                 </div>
                 <div className="vote-box">
-                    <p>
+                  <p>
                     <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="white"
-                        class="bi bi-caret-down"
-                        viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="white"
+                      class="bi bi-caret-down"
+                      viewBox="0 0 16 16"
                     >
-                        <path d="M3.204 5h9.592L8 10.481zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659" />
+                      <path d="M3.204 5h9.592L8 10.481zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659" />
                     </svg>{" "}
                     12k
-                    </p>
+                  </p>
                 </div>
                 <div className="comment-show">
-                    152 comments
+                  152 comments
                 </div>
-                
-                </div>
-                <br/>
-                <hr style={{opacity:"0.22"}}/>
-                
-                <br/>
 
-                <div className="comment-contaiter">
-                    <p>Comments</p>
-                    <br/>
-                    <textarea placeholder="Write a comment" className="comment-input" > </textarea>
-                    <button className="comment-button">Comment</button>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <CommentCard/>
-                    <CommentCard/>
-                    <CommentCard/>
-                    <br/>
-                    <center>
-                    <button className="view-more-comment-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16" style={{marginRight:"2px"}}>
-                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                        </svg>
-                        View More Comment
-                    </button>
-                    </center>
+              </div>
+              <br />
+              <hr style={{ opacity: "0.22" }} />
 
+              <br />
 
+              <div className="comment-contaiter">
+                <p>Comments</p>
+                <br />
+                <textarea placeholder="Write a comment" className="comment-input" > </textarea>
+                <button className="comment-button">Comment</button>
+                <br />
+                <br />
+                <br />
+                <br />
+                <CommentCard />
+                <CommentCard />
+                <CommentCard />
+                <br />
+                <center>
+                  <button className="view-more-comment-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16" style={{ marginRight: "2px" }}>
+                      <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                    </svg>
+                    View More Comment
+                  </button>
+                </center>
 
 
-                </div>
+
+
+              </div>
 
             </div>
 
@@ -124,16 +125,16 @@ const BlogDetails = () => {
 
           <div className="user-container">
             <h1>Posted By</h1>
-            <div style={{display:"flex", marginTop:"10px"}}>
-            <img className="profile-pic" src={User} alt="" />
-            <p className="blog-user-name">@siriUwu</p>
-            <br/>
+            <div style={{ display: "flex", marginTop: "10px" }}>
+              <img className="profile-pic" src={User} alt="" />
+              <p className="blog-user-name">@siriUwu</p>
+              <br />
             </div>
             <p className="blog-user-bio"> - Shirish Jonchhen</p>
             <p className="blog-user-bio"> - jonchhenshirish7@gmail.com</p>
             <p className="blog-user-bio">This is bio to my profile. I am a good blogger and i post good content.
-             I am a good at other things too like blowjob. HUH</p>
- 
+              I am a good at other things too like blowjob. HUH</p>
+
           </div>
         </div>
       </div>

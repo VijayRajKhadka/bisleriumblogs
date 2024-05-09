@@ -20,17 +20,11 @@ const App = () => {
           <Route path='/create' element={<CreatePost />} />
           <Route path='/saved' element={<SavedBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/register' element={<Register />} />
-              <Route path='/blog-details' element={<BlogDetails />} />
-
-            </Routes>
-          </BrowserRouter>
-        </>
-        );
+          <Route path='/blog-detail' element={<BlogDetails />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 };
 
-        export default App;
+export default App;

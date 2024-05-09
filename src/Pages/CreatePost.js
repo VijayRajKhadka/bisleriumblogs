@@ -131,7 +131,7 @@ const CreatePost = () => {
                     // transition: Bounce,
                 });
             } else {
-                toast.error('Login Failed!', {
+                toast.error('Failed!', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,

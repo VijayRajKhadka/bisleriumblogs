@@ -57,9 +57,9 @@ const Login = () => {
                         // transition: Bounce,
                     });
 
-                    // window.location.href = '/';
-                    // setUsername('');
-                    // setPassword('');
+                    window.location.href = '/';
+                    setUsername('');
+                    setPassword('');
 
 
                 } else {
