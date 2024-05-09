@@ -1,9 +1,6 @@
-
-body{
-    overflow-x: hidden;
-    overflow-y: hidden;
+.profile-main-container{
+    height:100vh;
 }
-
 .profile-card {
     background-color: #fff;
     max-width: 600px;
@@ -55,22 +52,18 @@ body{
 }
 
 .button {
-    display: inline-block;
     padding: 10px 20px;
-    background-color: #0c0c0c;
-    color: #fff;
+    color: #a0a0a0;
+    font-size: 18px;
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
     user-select: none;
     transition: background-color 0.3s ease;
 }
-
-.button:hover {
-    background-color: white;
-    color: black;
+.button:hover{
+    color: white;
 }
-
 .overlay {
     position: fixed;
     top: 0;
@@ -86,31 +79,30 @@ body{
     visibility: visible;
     opacity: 1;
   }
-  .popup {
+.popup {
     margin: 70px auto;
-    padding: 20px;
     background: #fff;
     border-radius: 5px;
-    width: 30%;
+    width: 40%;
     position: relative;
     transition: all 2s ease-in-out;
-  }
+}
   .popup .close {
     position: absolute;
     top: 20px;
     right: 30px;
     transition: all 200ms;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     text-decoration: none;
-    color: #333;
+    color: #c71515;
   }
-  .popup .content {
+  .popup .password-content {
     max-height: 30%;
     overflow: auto;
   }
 
-  .container {
+  .password-container {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;

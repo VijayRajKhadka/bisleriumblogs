@@ -11,16 +11,20 @@ export default class profilepage extends Component {
   <div>
      <NavBar />
             <SideBar />
-      
-      <div className="profile-card">
+      <div className="content">
+        <div className="profile-main-container">
         <div className="profile-header">
+          <center>
           <img
             src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
             alt="Profile Picture"
             className="profile-picture"
           />
-          <h1 className="profile-name">John Doe</h1>
-          <p className="profile-bio">Frontend Developer</p>
+          </center>
+          <h1 className="profile-name">@username</h1>
+          <p className="profile-bio">Shirish Jonchhen</p>
+          <p className="profile-bio">This is my bio</p>
+
         </div>
 
         <br></br>
@@ -30,38 +34,28 @@ export default class profilepage extends Component {
               Update Profile
             </a>
           </div>
-          <br />
-          <br />
-          <br />
-
+          <br/>
+          <hr style={{width:"90%"}}/>
+          <br/>
           <div className="button">
             <a className="button" href="#popup2">
               Change Password
             </a>
           </div>
-          <br />
-          <br />
-          <br />
-
-          <div className="button">
-            <a className="button" href="#popup3">
-              sign out
-            </a>
-          </div>
+          <br />          
+          <hr style={{width:"90%"}}/>
         </center>
 
         <div id="popup1" className="overlay">
           <div className="popup">
             <center>
-              <h2>Who Is Me?</h2>
+              <h2>Update Profile</h2>
             </center>
             <a className="close" href="#">
               ×
             </a>
             <div className="content">
-              <div class="container">
-                <h2>User Profile</h2>
-                <form>
+              <div class="password-container">
                   <div className="form-group">
                     <label htmlFor="first-name">First Name</label>
                     <input
@@ -81,19 +75,14 @@ export default class profilepage extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input type="text" id="username" name="username" required />
-                  </div>
-                  <div className="form-group">
                     <label htmlFor="bio">Bio</label>
-                    <textarea id="bio" name="bio" required defaultValue={""} />
+                    <textarea id="bio" name="bio" />
                   </div>
                   <center>
                     <button type="submit" className="btn ">
-                      Submit
+                      Save Changes
                     </button>
                   </center>
-                </form>
               </div>
             </div>
           </div>
@@ -101,14 +90,21 @@ export default class profilepage extends Component {
 
         <div id="popup2" className="overlay">
           <div className="popup">
-            <center><h2>I Forgot!</h2></center>
+            <center><h2>Change Password</h2></center>
             <a className="close" href="#">
               ×
             </a>
-            <div className="content">
-              <div className="container">
-                <h2>Password Change</h2>
-                <form>
+            <div className="password-content">
+              <div className="password-container">
+                <div className="form-group">
+                    <label htmlFor="new-password">old Password</label>
+                    <input
+                      type="password"
+                      id="new-password"
+                      name="new-password"
+                      required
+                    />
+                  </div>
                   <div className="form-group">
                     <label htmlFor="new-password">New Password</label>
                     <input
@@ -131,7 +127,6 @@ export default class profilepage extends Component {
                     Change Password
                   </button>
                   </center>
-                </form>
               </div>
             </div>
           </div>
@@ -151,6 +146,7 @@ export default class profilepage extends Component {
         </div>
       </div>
       </div>
+  </div>
     );
   }
 }
