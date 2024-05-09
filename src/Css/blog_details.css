@@ -67,3 +67,19 @@
     color: white;
 }
 
+.edit-blog{
+    color: rgb(151, 226, 226);
+    margin-right: 20px;
+}
+.delete-blog{
+    color: rgb(231, 119, 119);
+}
+
+.edit-blog:hover{
+    color: aqua;
+    cursor: pointer;
+}
+.delete-blog:hover{
+    color: red;
+    cursor: pointer;
+}
