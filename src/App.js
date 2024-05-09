@@ -7,6 +7,7 @@ import Register from './Pages/Register';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import SavedBlogs from './Pages/SavedBlogs';
 import MyBlogs from './Pages/MyBlogs';
+import Profilepage from './Pages/Profilepage';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path='/create' element={<CreatePost />} />
           <Route path='/saved' element={<SavedBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
+          <Route path='/profilepage' element={<Profilepage/>}/>
 
         </Routes>
       </BrowserRouter>
