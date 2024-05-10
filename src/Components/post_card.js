@@ -1,13 +1,20 @@
 import "../Css/post_card.css";
 import User from "../Assets/Images/user.png";
 import Image1 from "../Assets/Images/login_background.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 const PostCard = (props) => {
   const [score, setScore] = useState(0);
+  const [id, setId] = useState(0);
+
+  useEffect(() => {
+    console.log(props.id);
+    setId(props.id);
+
+  }, []);
   return (
     <div>
-      <Link to='/blog-detail'>
+      <Link to={{ pathname: `/blog-detail/${id}` }}>
         <div className="card-container">
           <div className="head-container">
             <div style={{ display: "flex", alignContent: "center", alignItems: "center" }}>
@@ -15,21 +22,13 @@ const PostCard = (props) => {
               <p className="user-name">{props.postedBy}</p>
               <p className="post-date">{props.postedOn}</p>
             </div>
-            <div className="saved">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="white"
-                class="bi bi-bookmark"
-                viewBox="0 0 16 16"
-              >
-                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-              </svg>
-            </div>
+            
           </div>
           <div className="card-content">
-            <p>
+            <p style={{fontWeight:"bold"}}>
+              {props.title}
+            </p>
+            <p style={{fontWeight:"200"}}>
               {props.content}
             </p>
             {
@@ -50,7 +49,9 @@ const PostCard = (props) => {
                 >
                   <path d="M3.204 11h9.592L8 5.519zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659" />
                 </svg>{" "}
-                {score}
+                {props.upvote}
+
+                <br />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -62,6 +63,7 @@ const PostCard = (props) => {
                 >
                   <path d="M3.204 5h9.592L8 10.481zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659" />
                 </svg>{" "}
+                {props.downvote}
               </p>
             </div>
             {/* <div className="feed-box">

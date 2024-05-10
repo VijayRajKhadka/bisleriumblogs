@@ -64,30 +64,58 @@
     border-radius: 15px;
     border: 1px solid rgb(127, 124, 124);
     padding: 10px;
+    color: white;
 }
 
-.comment-button{
-    background-color: #66FCF1;
-    font-size: 14px;
-    padding: 5px;
-    width: 90px;
-    height: 40px;
-    border-radius: 15px;
-    float: right;
-    margin-top: 10px;
-    color: black;
+.edit-blog{
+    color: rgb(151, 226, 226);
+    margin-right: 20px;
+}
+.delete-blog{
+    color: rgb(231, 119, 119);
 }
 
-.view-more-comment-button{
-    display: flex;
-    align-items: center;
-    background-color: #66FCF1;
-    font-size: 15px;
+.edit-blog:hover{
+    color: aqua;
+    cursor: pointer;
+}
+.delete-blog:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.blog-edit-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(50, 49, 49);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 9999;
+}
+.blog-edit-container input{
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+}
+
+.blog-edit-form {
+    padding: 40px;
+}
+
+.close-btn {
+    position: absolute;
+    margin: 20px;
+    width:35px;
+    top: -10px;
+    right: -10px;
+    background-color: rgb(234, 2, 2);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
     padding: 5px;
-    width: 180px;
-    height: 40px;
-    border-radius: 15px;
-    margin-top: 10px;
-    color: black;
-    font-weight: 300;
+    border-radius: 50%;
 }

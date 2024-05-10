@@ -12,6 +12,11 @@ export const registerUser = async (payload) => {
 
         const response = await axios.post(`https://localhost:7216/api/authenticate/register`, payload, { headers: headers });
         console.log(response);
+        if (response.data.status == 'Success') {
+            resolve(true);
+        } else {
+            resolve(false);
+        }
     });
 }
 
