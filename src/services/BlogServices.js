@@ -92,6 +92,26 @@ export const getAllRandomBlogs = (page) => {
     });
 }
 
+export const getAllPopularBlogs = (page) => {
+    const optins = {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${getLocalStorageItem('token')}`
+        }
+    }
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.get(`${GlobalService.baseUrl}blogs/getPopular?page=${page}`);
+            resolve(response.data)
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+        } catch (error) {
+
+        }
+    });
+}
+
 export const getBlogDetails = (id) => {
     return new Promise(async (resolve, reject) => {
         console.log("🚀 ~ file: BlogServices.js ~ line 100 ~ returnnewPromise ~ id", id)

@@ -10,6 +10,7 @@ import SavedBlogs from './Pages/SavedBlogs';
 import MyBlogs from './Pages/MyBlogs';
 import Profilepage from './Pages/Profilepage';
 import RandomBlogs from './Pages/RandomBlogs';
+import PopularBlogs from './Pages/PopularBlogs';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='/create' element={<CreatePost />} />
           <Route path='/saved' element={<SavedBlogs />} />
           <Route path='/random-blogs' element={<RandomBlogs />} />
+          <Route path='/popular-blogs' element={<PopularBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
           <Route path='/profilepage' element={<Profilepage />} />
           <Route path='/blog-detail/:id' element={<BlogDetails />} />

@@ -6,6 +6,7 @@ import PostCard from "../Components/post_card";
 import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
 import { getAllRandomBlogs } from "../services/BlogServices";
+import { timeAgo } from "../helper/DateTimeHelper";
 
 const RandomBlogs = () => {
     const [blogs, setBlogs] = useState([])
@@ -82,7 +83,7 @@ const RandomBlogs = () => {
                             content={blog.content}
                             imageUrl={blog.images[0]}
                             postedBy={blog.user.userName}
-                            postedOn={blog.postedOn}
+                            postedOn={timeAgo(blog.createdDateTime)}
                             score={blog.score}
                             comments={blog.comments}
                             id={blog.id}

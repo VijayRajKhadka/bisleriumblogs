@@ -5,9 +5,10 @@ import PostCard from "../Components/post_card";
 
 import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
-import { getAllBlogs } from "../services/BlogServices";
+import { getAllPopularBlogs } from "../services/BlogServices";
 import { timeAgo } from "../helper/DateTimeHelper";
-const Home = () => {
+
+const PopularBlogs = () => {
     const [blogs, setBlogs] = useState([])
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -19,7 +20,7 @@ const Home = () => {
         const loadMoreData = async () => {
             try {
                 setLoading(true);
-                const newData = await getAllBlogs(page);
+                const newData = await getAllPopularBlogs(page);
                 if (Array.isArray(newData)
                     && newData.length > 0) {
                     var newArr = [...blogs, ...newData];
@@ -90,6 +91,7 @@ const Home = () => {
                             savedByMe={blog.savedByMe}
                             upvote={blog.upvoteCount}
                             downvote={blog.downvoteCount}
+                            popularity = {blog.popularityScore}
 
 
                         />
@@ -111,4 +113,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default PopularBlogs;
