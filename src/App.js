@@ -9,6 +9,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import SavedBlogs from './Pages/SavedBlogs';
 import MyBlogs from './Pages/MyBlogs';
 import Profilepage from './Pages/Profilepage';
+import NotificationPage from './Pages/Notifications';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/my-blogs' element={<MyBlogs />} />
           <Route path='/profilepage' element={<Profilepage />} />
           <Route path='/blog-detail/:id' element={<BlogDetails />} />
+          <Route path='/notifications' element={<NotificationPage />} />
         </Routes>
       </BrowserRouter>
     </>
