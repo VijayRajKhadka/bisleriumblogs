@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../Css/comment_card.css";
 import User from "../Assets/Images/user.png";
-import { downVoteComment, getCommentsWithReply, replyOnComment, upVoteComment } from "../services/BlogServices";
+import { deleteComment, downVoteComment, getCommentsWithReply, replyOnComment, upVoteComment } from "../services/BlogServices";
 import { getLocalStorageItem } from "../services/LocalStorageService";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const CommentCard = (props) => {
     const [showReplyCommentBox, setshowReplyCommentBox] = useState(false);
     const [showSeeMore, setshowSeeMore] = useState(false);
@@ -106,7 +107,27 @@ const CommentCard = (props) => {
         setshowEditForm(!showEditForm);
         console.log(showEditForm)
     };
+
     const handleDelete = () => {
+        console.log("delete");
+        deleteComment(props.comment.commentId).then(
+            (res) => {
+                if (res) {
+                    console.log("deleted");
+                    window.location.reload();
+                    toast.success('Comment Deleted!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+            }
+        )
     }
     const handleChange = (e) => {
         setCommentEditValue(e.target.value);
@@ -121,7 +142,9 @@ const CommentCard = (props) => {
 
                 {
                     props.comment.user.userId === getLocalStorageItem("userId").replace(/"/g, "") && (
+
                         <div style={{ display: "flex", marginLeft: "30px", marginTop: "5px" }}>
+
                             <div className="edit-blog" onClick={handleToggleEdit}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +161,8 @@ const CommentCard = (props) => {
                                     />
                                 </svg>
                             </div>
-                            <div className="delete-blog" onClick={handleDelete}>
+
+                            <div className="delete-blog z-20" onClick={handleDelete}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="15"
@@ -151,6 +175,7 @@ const CommentCard = (props) => {
                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                                 </svg>
                             </div>
+
                         </div>
                     )
                 }
@@ -252,6 +277,7 @@ const CommentCard = (props) => {
                 </>
 
             )}
+            <ToastContainer />
             <hr style={{ width: "93%", opacity: "0.22", marginLeft: "40px" }} />
         </div>
     );

@@ -265,3 +265,20 @@ export const downVoteComment = (id) => {
     });
 
 }
+
+
+export const deleteComment = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.delete(`${GlobalService.baseUrl}comments/delete/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            resolve(response)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}
