@@ -69,3 +69,72 @@
     border-radius: 10px;
     margin-top: 20px;
 }
+
+
+.notification-container {
+    display: flex;
+    background-color: grey;
+    text-align: start;
+
+
+}
+
+.notification-box-content {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    margin-right: 16px; /* Add spacing between icon and text */
+    width: 50%;
+    justify-content: center;
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 10px;
+    
+}
+
+.notification-box-content p {
+    margin: 0; /* Remove default margin */
+    color: #fff;
+    text-align: start;
+
+    font-size: 16px;
+}
+
+.notification-box-content svg {
+    margin-right: 19px; /* Add spacing between icon and text */
+    color: #fff;
+    text-align: start;
+
+}
+
+.noti-i{
+    color: #fff;
+    font-size: 45px;
+}
+
+.notification-whole{
+    margin:10px;
+    border-radius: 10px;
+    background-color: #242526;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column; /* Stack icons vertically */
+    align-items: center; /* Align icons horizontally */
+}
+
+.notification-icon {
+    margin-bottom: 5px; /* Adjust the spacing between the icons */
+}
+
+.notification-badge {
+    position: absolute;
+    top: 10;
+    right: 10;
+    width: 14px;
+    height: 14px;
+    background-color: red;
+    border-radius: 50%;
+    z-index: 10; 
+}
+
