@@ -12,8 +12,10 @@ import MyBlogs from './Pages/MyBlogs';
 
 import Admindashboard from './Pages/Admindashboard';
 import Admins from './Pages/Admin';
-import Addadmin from './Pages/Addadmin';
-import Adminlogin from './Pages/Adminlogin';
+import Addadmin from './Pages/addadmin';
+import Adminlogin from './Pages/adminlogin';
+import AdminRegister from './Pages/adminregister';
+
 
 
 const App = () => {
@@ -32,6 +34,7 @@ const App = () => {
           <Route path='/admin' element={<Admins/>}/>
           <Route path='/addadmin' element={<Addadmin/>}/>
           <Route path='/loginadmin' element={<Adminlogin/>}/>
+          <Route path='/registeradmin' element={<AdminRegister/>}/>
 
         </Routes>
       </BrowserRouter>

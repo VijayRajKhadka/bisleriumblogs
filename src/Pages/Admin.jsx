@@ -31,7 +31,7 @@ export default class Admins extends Component {
                 <td data-column="Last Name">Matman</td>
                 <td data-column="Job Title">Chief Sandwich Eater</td>
                 <td data-column="Twitter">@james</td>
-                <td data-column="Action"><button>Delete</button></td>
+                <td data-column="Action"><button className='delete'>Delete</button></td>
 
                 </tr>
                 

@@ -9,7 +9,7 @@ body {
   .material-icons-outlined {
     vertical-align: middle;
     line-height: 1px;
-    font-size: 35px;
+    font-size: 45px;
   }
   
   .grid-container {
@@ -335,3 +335,69 @@ table th {
       display: none;
     }
   }
+
+
+  .top-users {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Adjust margin as needed */
+  }
+  
+  .user h1 {
+    margin-right: 10px; /* Adjust margin as needed */
+    border-radius: 50%; /* Make the number appear inside a circle */
+    background-color: #091ED0; /* Set background color for the circle */
+    color: white; /* Set text color */
+    width: 40px; /* Set width of the circle */
+    height: 40px; /* Set height of the circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .user-image img {
+    border-radius: 50%; /* Make the image appear inside a circle */
+    width: 50px; /* Set width of the image */
+    height: 50px; /* Set height of the image */
+    object-fit: cover; /* Ensure the image covers the entire circle */
+  }
+
+  .user-name {
+    margin-bottom: 5px; /* Add margin-bottom to create a gap */
+  }
+
+  .top-users {
+    margin-bottom: 10px; /* Adjust this value as needed */
+  }
+  
+  /* Optional: Add margin to the bottom of each user component */
+  .user {
+    margin-bottom: 10px; /* Adjust this value as needed */
+  }
+ 
+  .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #263043;
+    margin-bottom: 0px;
+    border: 1px solid #473b3b;
+  }
+
+  .navigation:hover {
+    background-color: #34495e; /* Change the background color on hover */
+  } 
+  
+  .arrow {
+    cursor: pointer;
+    font-size: 24px;
+    margin: 0 10px;
+  }
+  
+ 
+  
