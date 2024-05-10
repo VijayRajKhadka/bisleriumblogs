@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { useEffect, useState } from "react";
 
 import "../Css/ad.css";
 
@@ -10,6 +10,9 @@ import { Bar, Doughnut, line } from "react-chartjs-2";
 
 import sourceData from "./data/sourceData.json";
 import Sidebar from "./AdminSidebar";
+
+import { getAllBlogs } from "../services/BlogServices";
+import PostCard from "../Components/post_card";
 
 import {
   Chart as ChartJS,
@@ -30,8 +33,66 @@ ChartJS.register(
   Tooltip
 );
 
-export default class admindashboard extends Component {
-  render() {
+const Admindashboard = () => {
+
+  const [blogs, setBlogs] = useState([])
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const pageSize = 10;
+  const [moreData, setMoreData] = useState(true);
+
+
+  useEffect(() => {
+      const loadMoreData = async () => {
+          try {
+              setLoading(true);
+              const newData = await getAllBlogs(page);
+              if (Array.isArray(newData)
+                  && newData.length > 0) {
+                  var newArr = [...blogs, ...newData];
+                  setBlogs(
+                      newArr
+                  );
+                  var newPage = page + 1;
+                  setPage(newPage);
+              }
+              else {
+                  setMoreData(false);
+              }
+          }
+          catch (error) {
+              console.error('Error fetching data:', error);
+              setMoreData(false);
+          } finally {
+              setLoading(false);
+          }
+      };
+
+      if (moreData && !loading) {
+          loadMoreData();
+      }
+  }, [page, pageSize, moreData, loading]);
+
+
+  const handleScroll = () => {
+      if (
+          window.innerHeight +
+          document.documentElement.scrollTop ===
+          document.documentElement.offsetHeight
+      ) {
+          var newPage = page + 1;
+          setPage(newPage);
+      }
+  };
+
+  useEffect(() => {
+      window.addEventListener('scroll', handleScroll);
+      return () =>
+          window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+
+  
     const data = {
       labels: ["mon", "tue", "wed"],
       datasets: [
@@ -55,6 +116,8 @@ export default class admindashboard extends Component {
         y: {},
       },
     };
+    
+ 
 
     return (
       <div>
@@ -203,7 +266,48 @@ export default class admindashboard extends Component {
 
               </div>
             </div>
-            <h2>POSTS</h2><br></br>
+            <br></br>
+            <center><h1 style={{ fontSize: '50px' }}>Top 10 Most Popular Blogs</h1><br></br></center>
+           <center>
+           {
+              blogs && blogs.map((blog, index) => {
+                  return (
+                    <div key={blog.id} style={{ position: 'relative' }}>
+                          <div style={{ position: 'absolute', top: '5%', left: 0, transform: 'translateY(-50%)',  padding: '5px' }}>
+                              <span style={{ fontSize: '50px' }}> {index + 1}</span>
+                          </div>
+
+                          <PostCard
+                              title={blog.title}
+                              content={blog.content}
+                              imageUrl={blog.images[0]}
+                              postedBy={blog.user.userName}
+                              postedOn={blog.postedOn}
+                              score={blog.score}
+                              comments={blog.comments}
+                              id={blog.id}
+                              likedByMe={blog.likedByMe}
+                              savedByMe={blog.savedByMe}
+                          />
+                        
+                      </div>
+                  );
+              })
+          }
+
+          {
+              !loading && !moreData && (
+                  <div>
+                      No more data
+                  </div>
+              )
+          }
+
+            </center>
+
+
+            
+           
 
             <div className="tables">
               <div className="left-div">
@@ -382,6 +486,11 @@ export default class admindashboard extends Component {
         
         
       </div>
+
+      
     );
-  }
+  
 }
+
+
+export default Admindashboard;

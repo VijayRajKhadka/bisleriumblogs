@@ -33,6 +33,7 @@ body {
 .form-container {
 	display: flex;
 	flex-direction: column;
+	
 }
 
 .form-container .input-addon {
@@ -45,6 +46,7 @@ body {
 	border: 1px solid #d2d6de;
 	padding: 5px;
 	font-size: .9rem;
+	position: relative	;
 }
 
 .form-element:focus {
@@ -85,3 +87,75 @@ body {
 	background: #fff;
 	color: #6a6b6d;
 }
+
+
+.popupregister{
+
+	width: 500px;
+	height: 20%;
+	border-radius: 10px;
+	background-color: white;
+	
+}
+
+
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	/* background: rgba(0, 0, 0, 0.7); */
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+  }
+  .overlay:target {
+	visibility: visible;
+	opacity: 1;
+  }
+  .popup {
+	margin: 70px auto;
+	padding: 20px;
+	background: #fff;
+	border-radius: 5px;
+	width: 30%;
+	position: relative;
+	transition: all 2s ease-in-out;
+  }
+  .popup .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+  }
+  .popup .content {
+	max-height: 30%;
+	overflow: auto;
+  }
+
+
+  .button {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+  }
+  
+  .button:hover {
+	background-color: #0056b3;
+  }
+  
+  .button:active {
+	background-color: #004080;
+  }
