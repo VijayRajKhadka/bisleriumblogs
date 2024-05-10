@@ -12,8 +12,8 @@ import MyBlogs from './Pages/MyBlogs';
 
 import Admindashboard from './Pages/Admindashboard';
 import Admins from './Pages/Admin';
-import Addadmin from './Pages/addadmin';
-import Adminlogin from './Pages/adminlogin';
+import Addadmin from './Pages/Addadmin';
+import Adminlogin from './Pages/Adminlogin';
 import AdminRegister from './Pages/adminregister';
 
 
