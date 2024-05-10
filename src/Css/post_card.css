@@ -129,10 +129,10 @@
 
 .notification-badge {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 10px;
-    height: 10px;
+    top: 10;
+    right: 10;
+    width: 14px;
+    height: 14px;
     background-color: red;
     border-radius: 50%;
     z-index: 10; 
