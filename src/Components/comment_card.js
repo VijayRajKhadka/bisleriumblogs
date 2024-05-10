@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../Css/comment_card.css";
 import User from "../Assets/Images/user.png";
-import { deleteComment, downVoteComment, getCommentsWithReply, replyOnComment, upVoteComment } from "../services/BlogServices";
+import { deleteComment, downVoteComment, getCommentsWithReply, replyOnComment, upVoteComment, updateComment } from "../services/BlogServices";
 import { getLocalStorageItem } from "../services/LocalStorageService";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -133,6 +133,35 @@ const CommentCard = (props) => {
         setCommentEditValue(e.target.value);
     };
 
+    const handleUpdate = () => {
+        var payload = {
+            "id": props.comment.commentId,
+            "data": {
+                "updatedContent": oldCommentValue,
+                "commentId": props.comment.commentId
+            }
+        }
+        console.log("🚀 ~ handleUpdate ~ payload", payload)
+        updateComment(payload).then(
+            (res) => {
+                if (res) {
+                    toast.success('Comment Updated!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                    setshowEditForm(false);
+                    window.location.reload();
+                }
+            }
+        )
+    }
+
     return (
         <div style={{ marginBottom: "10px" }}>
             <div className="user-comment-container">
@@ -194,7 +223,7 @@ const CommentCard = (props) => {
                     <br />
 
 
-                    <button className="update-button" onClick={handleReply}>Update</button>
+                    <button className="update-button" onClick={handleUpdate}>Update</button>
                 </div>
 
 

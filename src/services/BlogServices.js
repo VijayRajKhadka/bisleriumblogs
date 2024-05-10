@@ -282,3 +282,27 @@ export const deleteComment = (id) => {
         }
     });
 }
+
+export const updateComment = (payload) => {
+    {
+        //     id: 0,
+        //     data:{
+        //   "commentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        //   "updatedContent": "string"
+        // }        
+        //
+    }
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.patch(`${GlobalService.baseUrl}comments/update/${payload.id}`, payload.data, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            resolve(response)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}
