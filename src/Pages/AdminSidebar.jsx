@@ -11,8 +11,7 @@ export default class Sidebar extends Component {
            <span className="material-icons-outlined">search</span>
          </div>
          <div className="header-right">
-           <span className="material-icons-outlined">notifications</span>
-           <span className="material-icons-outlined">email</span>
+           
            <span className="material-icons-outlined">account_circle</span>
          </div>
        </header>
@@ -21,8 +20,8 @@ export default class Sidebar extends Component {
        <aside id="sidebar">
          <div className="sidebar-title">
            <div className="sidebar-brand">
-             <span className="material-icons-outlined">shopping_cart</span>{" "}
-             STORE
+             <span className="material-icons-outlined">book</span>{" "}
+             Bislerium
            </div>
            
          </div>
@@ -35,12 +34,6 @@ export default class Sidebar extends Component {
            </li>
            <li className="sidebar-list-item">
              <a href="/addadmin" target="_blank">
-               <span className="material-icons-outlined">inventory_2</span>{" "}
-               Add Admin
-             </a>
-           </li>
-           <li className="sidebar-list-item">
-             <a href="/profilepage" target="_blank">
                <span className="material-icons-outlined">inventory_2</span>{" "}
                Add Admin
              </a>

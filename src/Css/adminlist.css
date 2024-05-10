@@ -30,10 +30,10 @@ td:last-child {
   width: 100px; /* Adjust the width as needed */
 }
 
-button {
+.delete {
   background-color: rgb(199, 24, 24);
-  width: 50%;
-  height: 20%;
+  width: 55%;
+  height: 18%;
 }
 
 /* Max width before this PARTICULAR table gets nasty
