@@ -87,6 +87,10 @@ const Home = () => {
                             id={blog.id}
                             likedByMe={blog.likedByMe}
                             savedByMe={blog.savedByMe}
+                            upvote={blog.upvoteCount}
+                            downvote={blog.downvoteCount}
+
+
                         />
                     })
 

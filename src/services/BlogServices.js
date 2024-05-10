@@ -194,3 +194,38 @@ export const deleteBLog = (id) => {
         }
     });
 }
+
+
+export const upVoteBlog = (id) => {
+    console.log("🚀 ~ upVoteBlog ~ id:", id)
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.patch(`${GlobalService.baseUrl}blogs/upvote/${id}`, {}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            resolve(response)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}
+
+export const downVoteBlog = (id) => {
+    console.log("🚀 ~ downVoteBlog ~ id:", id)
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.patch(`${GlobalService.baseUrl}blogs/downvote/${id}`, {}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            resolve(response)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}

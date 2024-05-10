@@ -13,13 +13,16 @@ import { useParams } from "react-router-dom";
 import {
   commentOnBlog,
   deleteBLog,
+  downVoteBlog,
   getAllComments,
   getBlogDetails,
+  upVoteBlog,
 } from "../services/BlogServices";
-import { get } from "firebase/database";
+import { get, set } from "firebase/database";
 import { getLocalStorageItem } from "../services/LocalStorageService";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { timeAgo } from "../helper/DateTimeHelper";
 
 
 const BlogDetails = () => {
@@ -32,6 +35,11 @@ const BlogDetails = () => {
   //comment
   const [comment, setComment] = useState("");
   const [commentError, setCommentError] = useState("");
+
+
+  const [upVoteCount, setUpVoteCount] = useState(0);
+  const [downVoteCount, setDownVoteCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
 
   //validate comment
   const validateComment = () => {
@@ -52,7 +60,12 @@ const BlogDetails = () => {
     setBlogId(id);
 
     getBlogDetails(id).then((res) => {
+      console.log("🚀 ~ getBlogDetails ~ res:", res)
       setBlogDetails(res);
+      setUpVoteCount(res.upvoteCount);
+      setDownVoteCount(res.downvoteCount);
+      setCommentCount(res.commentCount)
+
     });
 
     getAllComments(id).then((res) => {
@@ -81,8 +94,11 @@ const BlogDetails = () => {
           "🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ res",
           res
         );
+        setComment("");
         getAllComments(id).then((res) => {
           setComments(res);
+          var newCommnetCount = commentCount + 1;
+          setCommentCount(newCommnetCount);
         });
       });
       // console.log("🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ payload", payload)
@@ -124,6 +140,43 @@ const BlogDetails = () => {
     );
   }
 
+
+  const handleUpVode = () => {
+    console.log(blogDetails.isLikedByMe);
+    if (
+      blogDetails.isLikedByMe === false
+    ) {
+      upVoteBlog(id).then(
+        (res) => {
+          console.log("🚀 ~ handleUpVode ~ res", res)
+          if (res) {
+            setUpVoteCount(upVoteCount + 1)
+          }
+        }
+      )
+    }
+
+  }
+
+  const handleDownVote = () => {
+    console.log(blogDetails.isDisLikedByMe);
+
+    if (
+      blogDetails.isDisLikedByMe === false
+    ) {
+
+      // console.log("🚀 ~ handleDownVlog ~ payload", payload)
+      downVoteBlog(id).then(
+        (res) => {
+          console.log("🚀 ~ handleDownVlog ~ res", res)
+          if (res) {
+            setDownVoteCount(downVoteCount + 1)
+          }
+        }
+      )
+    }
+  }
+
   return (
     <div>
       <NavBar />
@@ -142,7 +195,7 @@ const BlogDetails = () => {
                 >
                   <img className="profile-pic" src={User} alt="" />
                   <p className="user-name">{blogDetails.user.userName}</p>
-                  <p className="post-date">3 days ago</p>
+                  <p className="post-date">{timeAgo(blogDetails.createdDateTime)}</p>
                 </div>
 
                 {blogDetails.user.userId == getLocalStorageItem("userId").replace(/"/g, "") ? (
@@ -192,7 +245,7 @@ const BlogDetails = () => {
                 {/* <img src={Image1} className="image-container"></img> */}
                 <br />
                 <div className="post-feed">
-                  <div className="vote-box">
+                  <div className="vote-box " onClick={handleUpVode}>
                     <p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -204,10 +257,10 @@ const BlogDetails = () => {
                       >
                         <path d="M3.204 11h9.592L8 5.519zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659" />
                       </svg>{" "}
-                      52k
+                      {upVoteCount}
                     </p>
                   </div>
-                  <div className="vote-box">
+                  <div className="vote-box" onClick={handleDownVote}>
                     <p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -219,11 +272,11 @@ const BlogDetails = () => {
                       >
                         <path d="M3.204 5h9.592L8 10.481zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659" />
                       </svg>{" "}
-                      12k
+                      {downVoteCount}
                     </p>
                   </div>
                   <div className="comment-show">
-                    {blogDetails.commentCount} comments
+                    {commentCount} comments
                   </div>
                 </div>
                 <br />
@@ -237,6 +290,7 @@ const BlogDetails = () => {
                   <textarea
                     placeholder="Write a comment"
                     className="comment-input"
+                    value={comment}
                     onChange={(e) => {
                       setComment(e.target.value);
                       console.log(
