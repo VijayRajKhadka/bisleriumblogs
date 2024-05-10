@@ -33,7 +33,7 @@ const NavBar = () => {
                 {isDropdownOpen && (
 
                     (getLocalStorageItem('token')) ? <div className="dropdown-content">
-                        <a href="#">Profile</a>
+                        <a href="/profilepage">Profile</a>
                         <a href="#">Change Password</a>
                         <a href="#" style={{ color: "red" }} onClick={handleLogout} >Logout</a>
                     </div> : <div className="dropdown-content">
