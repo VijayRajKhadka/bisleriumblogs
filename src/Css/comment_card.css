@@ -60,3 +60,25 @@
 .see-replies:hover{
     cursor: pointer;
 }
+.user-comment-edit{
+    margin-left: 45px;
+    padding: 5px;
+    color: white;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid grey;
+    width: 80%;
+}
+
+.update-button{
+    background-color: #66FCF1;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 5px;
+    width: 90px;
+    height: 40px;
+    border-radius: 15px;
+    margin-left: 45px;
+    margin-bottom: 15px;
+    color: black;
+}

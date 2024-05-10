@@ -229,3 +229,39 @@ export const downVoteBlog = (id) => {
         }
     });
 }
+
+
+export const upVoteComment = (id) => {
+    console.log("🚀 ~ downVoteBlog ~ id:", id)
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.patch(`${GlobalService.baseUrl}comments/upvote/${id}`, {}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            resolve(response)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}
+
+export const downVoteComment = (id) => {
+    console.log("🚀 ~ downVoteBlog ~ id:", id)
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.patch(`${GlobalService.baseUrl}comments/downvote/${id}`, {}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            resolve(response)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+}
