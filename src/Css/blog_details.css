@@ -83,3 +83,39 @@
     color: red;
     cursor: pointer;
 }
+
+.blog-edit-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(50, 49, 49);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 9999;
+}
+.blog-edit-container input{
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+}
+
+.blog-edit-form {
+    padding: 40px;
+}
+
+.close-btn {
+    position: absolute;
+    margin: 20px;
+    width:35px;
+    top: -10px;
+    right: -10px;
+    background-color: rgb(234, 2, 2);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 50%;
+}

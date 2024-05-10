@@ -31,6 +31,7 @@ const BlogDetails = () => {
   const [blogId, setBlogId] = useState(0);
   const [blogDetails, setBlogDetails] = useState(null);
   const [comments, setComments] = useState([]);
+  const [showEditForm, setshowEditForm] = useState(false);
 
   //comment
   const [comment, setComment] = useState("");
@@ -138,7 +139,16 @@ const BlogDetails = () => {
         }
       }
     );
+
+    
   }
+  const handleEdit = () => {
+
+  }
+  const handleToggleEdit = () => {
+    setshowEditForm(!showEditForm); 
+    console.log(showEditForm)
+};
 
 
   const handleUpVode = () => {
@@ -181,8 +191,30 @@ const BlogDetails = () => {
     <div>
       <NavBar />
       <SideBar />
+      
+               
+               
       {blogDetails ? (
         <div className="content">
+           {showEditForm && (
+            <div class="blog-edit-container">
+            <button className="close-btn" onClick={handleToggleEdit}>X</button>
+            <div class="blog-edit-form">
+                <form onSubmit={handleEdit} class="space-y-2">
+                    <input type="text" placeholder="Title" class="w-full px-3 py-2 border rounded-md focus:outline-none" value={blogDetails.title}/>
+                    <input type="text" placeholder="Content" class="w-full px-3 py-2 border rounded-md focus:outline-none" value={blogDetails.content} />
+                    <p style={{marginLeft:"10px", color:"white"}}>Replace Photo?</p>
+                    <input type="file" accept="image/*" className="form-input w-full text-white rounded-md border border-white bg-transparent" />
+                    <br/>
+                    <br/>
+                    <div style={{float:"right"}}>
+                    <span className="bg-transparent text-white border border-white py-2 px-4 rounded-md mr-5 w-1/2  hover:cursor-pointer hover:bg-teal-400">Save Changes</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+                )}
           <div className="blog-main-container h-screen">
             <div className="blog-container">
               <div className="head-container">
@@ -200,7 +232,7 @@ const BlogDetails = () => {
 
                 {blogDetails.user.userId == getLocalStorageItem("userId").replace(/"/g, "") ? (
                   <div style={{ display: "flex" }}>
-                    <div className="edit-blog">
+                    <div className="edit-blog"  onClick={handleToggleEdit}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -235,7 +267,12 @@ const BlogDetails = () => {
                 )}
               </div>
               <div className="card-content">
-                <p>{blogDetails.content}</p>
+              <p style={{fontWeight:"bold"}}>
+              {blogDetails.title}
+            </p>
+            <p style={{fontWeight:"200"}}>
+              {blogDetails.content}
+            </p>                
                 {blogDetails.images.length > 0 ? (
                   <img
                     src={blogDetails.images[0]}
