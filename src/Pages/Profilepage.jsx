@@ -1,12 +1,23 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import "../Css/profile.css";
 import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
+import { getUserDetails } from "../services/UserServices";
 
-export default class profilepage extends Component {
+const ProfilePage = () =>{
+  const [user, setUser]= useState(null);
 
+  useEffect(() => {
+    getUserDetails().then(
+      (res) => {
+        console.log("🚀 ~ useEffect ~ res:", res)
+  
+        setUser(res);
+      }
+    )
+}, []);
 
-  render() {
+   {
     return (
       <div>
         <NavBar />
@@ -21,9 +32,9 @@ export default class profilepage extends Component {
                   className="profile-picture"
                 />
               </center>
-              <h1 className="profile-name">@username</h1>
-              <p className="profile-bio">Shirish Jonchhen</p>
-              <p className="profile-bio">This is my bio</p>
+              <h1 className="profile-name">@{user.userName}</h1>
+              <p className="profile-bio">{user.email}</p>
+              <p className="profile-bio">{user.bio}</p>
 
             </div>
 
@@ -89,6 +100,8 @@ export default class profilepage extends Component {
                       <label htmlFor="bio">Bio</label>
                       <textarea id="bio" name="bio" />
                     </div>
+                    <input type="file" id="image" name="image"  accept="image/*" className="form-input w-full text-white rounded-md border border-white bg-transparent" onChange={(e) => (e.target.files[0])} />
+
                     <center>
                       <button type="submit" className="btn ">
                         Save Changes
@@ -143,21 +156,11 @@ export default class profilepage extends Component {
               </div>
             </div>
 
-            <div id="popup3" className="overlay">
-              <div className="popup">
-                <h2>Here i am</h2>
-                <a className="close" href="#">
-                  ×
-                </a>
-                <div className="content">
-                  Thanksssss to pop me out of that button, but now i'm done so you
-                  can close this window.
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
     );
   }
 }
+export default ProfilePage;

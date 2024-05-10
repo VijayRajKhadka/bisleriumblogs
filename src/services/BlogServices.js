@@ -72,6 +72,25 @@ export const getAllBlogs = (page) => {
     });
 }
 
+export const getAllRandomBlogs = (page) => {
+    const optins = {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${getLocalStorageItem('token')}`
+        }
+    }
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.get(`${GlobalService.baseUrl}blogs/getAllRandom?page=${page}`);
+            resolve(response.data)
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+        } catch (error) {
+
+        }
+    });
+}
 
 export const getBlogDetails = (id) => {
     return new Promise(async (resolve, reject) => {
