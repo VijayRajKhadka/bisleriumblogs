@@ -306,3 +306,23 @@ export const updateComment = (payload) => {
         }
     });
 }
+
+
+export const updateBlog = async (payload) => {
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.post(`${GlobalService.baseUrl}blogs/update/${payload.id}`, payload.data, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+                }
+            });
+            console.log("🚀 ~ returnnewPromise ~ response:", response)
+
+            resolve(response)
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}

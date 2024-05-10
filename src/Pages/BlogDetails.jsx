@@ -17,12 +17,16 @@ import {
   getAllComments,
   getBlogDetails,
   upVoteBlog,
+  updateBlog,
 } from "../services/BlogServices";
-import { get, set } from "firebase/database";
+import { get, set, update } from "firebase/database";
 import { getLocalStorageItem } from "../services/LocalStorageService";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { timeAgo } from "../helper/DateTimeHelper";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { uploadPhoto } from "../config/Config";
+import { v4 } from "uuid";
 
 
 const BlogDetails = () => {
@@ -32,6 +36,50 @@ const BlogDetails = () => {
   const [blogDetails, setBlogDetails] = useState(null);
   const [comments, setComments] = useState([]);
   const [showEditForm, setshowEditForm] = useState(false);
+
+  const [oldtitle, setoldTitle] = useState("");
+  const [oldcontent, setoldContent] = useState("");
+  const [image, setImage] = useState(null);
+
+
+  const [oldtitleError, setoldTitleError] = useState("");
+  const [oldcontentError, setoldContentError] = useState("");
+  const [imageError, setImageError] = useState("");
+
+
+  const titleValidator = (title) => {
+    setoldTitle(title);
+    if (title === '') {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  const contentValidator = (content) => {
+    setoldContent(content);
+    if (content === '') {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  const imageValidator = (image) => {
+    setImage(image);
+    if (image === null) {
+      return true
+    } else {
+      if (image.size > 3 * 1024 * 1024) {
+        setImageError('Image size should be less than 3MB');
+        return false
+      } else {
+        setImageError('');
+        return true
+      }
+    }
+  }
+
 
   //comment
   const [comment, setComment] = useState("");
@@ -66,7 +114,8 @@ const BlogDetails = () => {
       setUpVoteCount(res.upvoteCount);
       setDownVoteCount(res.downvoteCount);
       setCommentCount(res.commentCount)
-
+      setoldTitle(res.title);
+      setoldContent(res.content);
     });
 
     getAllComments(id).then((res) => {
@@ -187,34 +236,140 @@ const BlogDetails = () => {
     }
   }
 
+
+  const handleUpdateBlog = () => {
+    if (titleValidator(oldtitle) && contentValidator(oldcontent) && imageValidator(image)) {
+      if (image) {
+        const imgRef = ref(
+          uploadPhoto, `files/${v4()}`
+        )
+        uploadBytes(imgRef, image).then(
+          (snapshot) => {
+            getDownloadURL(imgRef).then(
+              (url) => {
+                console.log("🚀 ~ handleUpdateBlog ~ url:", url)
+                var payload = {
+                  id: id,
+                  data: {
+                    title: oldtitle,
+                    content: oldcontent,
+                    images: [
+                      { imageLink: url },
+                    ]
+                  }
+                }
+                console.log("🚀 ~ handleUpdateBlog ~ payload:", payload)
+
+                updateBlog(payload).then(
+                  (res) => {
+                    console.log("🚀 ~ handleUpdateBlog ~ res", res)
+                    if (res) {
+                      toast.success('Update Successful!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        // transition: Bounce,
+                      });
+                      window.location.reload();
+                    }
+                  }
+                )
+
+
+              }
+            )
+          }
+        )
+
+
+      } else {
+        var payload = {
+          id: id,
+          data: {
+            title: oldtitle,
+            content: oldcontent,
+            images: []
+          }
+        }
+
+        updateBlog(payload).then(
+          (res) => {
+            console.log("🚀 ~ handleUpdateBlog ~ res", res)
+            if (res) {
+              toast.success('Update Successful!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                // transition: Bounce,
+              });
+              window.location.reload();
+            }
+          }
+        )
+      }
+
+
+    }
+
+
+  }
+
+
   return (
     <div>
       <NavBar />
       <SideBar />
-
-
-
       {blogDetails ? (
         <div className="content">
+
+
+
+
+
+
+
+
+
           {showEditForm && (
             <div class="blog-edit-container">
               <button className="close-btn" onClick={handleToggleEdit}>X</button>
               <div class="blog-edit-form">
                 <form onSubmit={handleEdit} class="space-y-2">
-                  <input type="text" placeholder="Title" class="w-full px-3 py-2 border rounded-md focus:outline-none" value={blogDetails.title} />
-                  <input type="text" placeholder="Content" class="w-full px-3 py-2 border rounded-md focus:outline-none" value={blogDetails.content} />
+                  <input type="text" placeholder="Title" class="w-full px-3 py-2 border rounded-md focus:outline-none" value={oldtitle} onChange={(e) => setoldTitle(e.target.value)} />
+                  <input type="text" placeholder="Content" class="w-full px-3 py-2 border rounded-md focus:outline-none" value={oldcontent} onChange={(e) => setoldContent(e.target.value)} />
                   <p style={{ marginLeft: "10px", color: "white" }}>Replace Photo?</p>
-                  <input type="file" accept="image/*" className="form-input w-full text-white rounded-md border border-white bg-transparent" />
+                  <input type="file" accept="image/*" className="form-input w-full text-white rounded-md border border-white bg-transparent" onChange={(e) => setImage(e.target.files[0])} />
+                  {imageError && <span className="text-red-600">**{imageError}</span>}
                   <br />
+
                   <br />
                   <div style={{ float: "right" }}>
-                    <span className="bg-transparent text-white border border-white py-2 px-4 rounded-md mr-5 w-1/2  hover:cursor-pointer hover:bg-teal-400">Save Changes</span>
+                    <span className="bg-transparent text-white border border-white py-2 px-4 rounded-md mr-5 w-1/2  hover:cursor-pointer hover:bg-teal-400" onClick={handleUpdateBlog}>Save Changes</span>
                   </div>
                 </form>
               </div>
             </div>
-
           )}
+
+
+
+
+
+
+
+
+
+
           <div className="blog-main-container h-screen">
             <div className="blog-container">
               <div className="head-container">
@@ -229,7 +384,6 @@ const BlogDetails = () => {
                   <p className="user-name">{blogDetails.user.userName}</p>
                   <p className="post-date">{timeAgo(blogDetails.createdDateTime)}</p>
                 </div>
-
                 {blogDetails.user.userId == getLocalStorageItem("userId").replace(/"/g, "") ? (
                   <div style={{ display: "flex" }}>
                     <div className="edit-blog" onClick={handleToggleEdit}>
@@ -318,9 +472,7 @@ const BlogDetails = () => {
                 </div>
                 <br />
                 <hr style={{ opacity: "0.22" }} />
-
                 <br />
-
                 <div className="comment-contaiter">
                   <p>Comments</p>
                   <br />
