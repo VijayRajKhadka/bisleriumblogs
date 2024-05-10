@@ -198,6 +198,8 @@ export default class admindashboard extends Component {
                 </div>
               </div>
             </div><br></br>
+              
+
             <center><h2>Top 10 Users (All Time) </h2><br></br></center>
 
             <div className="tables">
