@@ -55,7 +55,7 @@ const Adminlogin = () => {
                       // transition: Bounce,
                   });
 
-                  window.location.href = '/admindashboard';
+                  window.location.href = '/Admindashboard';
                   setUsername('');
                   setPassword('');
 

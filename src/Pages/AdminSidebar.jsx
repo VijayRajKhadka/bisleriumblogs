@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
+import Cookies from 'js-cookie';
+
+const handleLogout = () => {
+  Cookies.remove('adminToken'); // Clear the 'token' cookie
+  window.location.href = '/loginadmin'; // Redirect to the home page or any desired location
+}
 
 
 export default class Sidebar extends Component {
+
+
   render() {
     return (
       <>
