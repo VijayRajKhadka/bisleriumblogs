@@ -8,7 +8,6 @@ const PostCard = (props) => {
   const [id, setId] = useState(0);
 
   useEffect(() => {
-    console.log(props.id);
     setId(props.id);
 
   }, []);

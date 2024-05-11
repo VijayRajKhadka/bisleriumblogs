@@ -32,12 +32,10 @@ export const addBlog = (payload) => {
             if (
                 response.data.status == 'Success'
             ) {
-                console.log("🚀 ~ returnnewPromise ~ response:", response)
                 resolve(true);
             } else {
                 resolve(false);
             }
-            console.log(response);
         } catch (error) {
             console.error(error);
         }
@@ -64,8 +62,6 @@ export const getAllBlogs = (page) => {
         try {
             const response = await axios.get(`${GlobalService.baseUrl}blogs/getAll?page=${page}`);
             resolve(response.data)
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
         } catch (error) {
 
         }
@@ -84,8 +80,6 @@ export const getAllRandomBlogs = (page) => {
         try {
             const response = await axios.get(`${GlobalService.baseUrl}blogs/getAllRandom?page=${page}`);
             resolve(response.data)
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
         } catch (error) {
 
         }
@@ -104,8 +98,6 @@ export const getAllPopularBlogs = (page) => {
         try {
             const response = await axios.get(`${GlobalService.baseUrl}blogs/getPopular?page=${page}`);
             resolve(response.data)
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
         } catch (error) {
 
         }
@@ -125,7 +117,6 @@ export const getBlogDetails = (id) => {
                 }
             });
 
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
 
 
 
@@ -164,9 +155,6 @@ export const getAllComments = (id) => {
                     "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
                 }
             });
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
-            console.log("🚀 ~ returnnewPromise ~ response.data:", response.data)
-
 
             resolve(response.data)
         } catch (error) {
@@ -226,7 +214,6 @@ export const deleteBLog = (id) => {
                     "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
                 }
             });
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
             resolve(response)
         } catch (error) {
             console.error(error);
@@ -245,7 +232,6 @@ export const upVoteBlog = (id) => {
                     "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
                 }
             });
-            resolve(response)
         } catch (error) {
             console.error(error);
         }
@@ -262,7 +248,6 @@ export const downVoteBlog = (id) => {
                     "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
                 }
             });
-            resolve(response)
         } catch (error) {
             console.error(error);
         }
@@ -357,7 +342,6 @@ export const updateBlog = async (payload) => {
                     "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
                 }
             });
-            console.log("🚀 ~ returnnewPromise ~ response:", response)
 
             resolve(response)
         } catch (error) {

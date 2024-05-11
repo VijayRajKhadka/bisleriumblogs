@@ -5,7 +5,7 @@ import GlobalService from "./GlobalService";
 export const getAllNotification = async () => {
     return new Promise(async (resolve, reject) => {
         const token = getLocalStorageItem('token');
-        const userId = getLocalStorageItem('userId').slice(1, -1); 
+        const userId = getLocalStorageItem('userId');
 
         if (!userId || !token) {
             console.error("User ID or token is null or undefined.");
@@ -14,13 +14,14 @@ export const getAllNotification = async () => {
         }
 
         try {
+            const userIdTrimmed = userId.slice(1, -1); 
 
-            const response = await axios.get(`${GlobalService.baseUrl}notification/getAll/${userId}`, {
+            const response = await axios.get(`${GlobalService.baseUrl}notification/getAll/${userIdTrimmed}`, {
                 headers: {
                     "Authorization": "Bearer " + token.replace(/"/g, '')
                 }
             });
-            console.log(response)
+            console.log(response);
             resolve(response.data.status === 'Success');
         } catch (error) {
             console.error("Error getting all notifications:", error);
@@ -31,9 +32,9 @@ export const getAllNotification = async () => {
 
 export const getUnreadNotificationCount = async () => {
     return new Promise(async (resolve, reject) => {
-        const userId = getLocalStorageItem('userId').slice(1, -1); 
         const token = getLocalStorageItem('token');
-
+        const userId = getLocalStorageItem('userId');
+        console.log(userId);
         if (!userId || !token) {
             console.error("User ID or token is null or undefined.");
             resolve(false);
@@ -41,15 +42,15 @@ export const getUnreadNotificationCount = async () => {
         }
 
         try {
+            const userIdTrimmed = userId.slice(1, -1); 
 
-            const response = await axios.get(`${GlobalService.baseUrl}notification/unreadCount/${userId}`, {
+            const response = await axios.get(`${GlobalService.baseUrl}notification/unreadCount/${userIdTrimmed}`, {
                 headers: {
                     "Authorization": "Bearer " + token.replace(/"/g, '')
                 }
             });
             console.log(response);
             resolve(response.data);
-
         } catch (error) {
             console.error("Error getting unread notification count:", error);
             resolve(false);

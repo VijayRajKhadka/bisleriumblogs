@@ -35,12 +35,14 @@ const App = () => {
           <Route path='/random-blogs' element={<RandomBlogs />} />
           <Route path='/popular-blogs' element={<PopularBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
+          <Route path='/profilepage' element={<Profilepage />} />
           <Route path='/blog-detail/:id' element={<BlogDetails />} />
           <Route path="/admindashboard" element={<Admindashboard />} />
           <Route path='/admin' element={<Admins />} />
           <Route path='/addadmin' element={<Addadmin />} />
           <Route path='/loginadmin' element={<Adminlogin />} />
           <Route path='/registeradmin' element={<AdminRegister />} />
+          <Route path='/notification' element={<NotificationPage />} />
 
         </Routes>
       </BrowserRouter>
