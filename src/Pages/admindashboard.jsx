@@ -14,7 +14,6 @@ import Sidebar from "./AdminSidebar";
 import { getAllBlogs } from "../services/BlogServices";
 import PostCard from "../Components/post_card";
 
-import axios from 'axios';
 
 import {
   Chart as ChartJS,
