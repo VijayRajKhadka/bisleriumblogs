@@ -114,20 +114,73 @@ const Admindashboard = () => {
       },
     };
   
-    const data2 = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [
-        {
-          label: "Count",
-          data: [6, 3, 9, 2, 5, 0,0,0,0,0,0,0],
-          backgroundColor: "#091ED0",
-          // borderColor: "black",
-          pointBorderColor: "black",
-          fill: true,
-          tension: 0.4,
-        },
-      ],
+    // const data2 = {
+    //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    //   datasets: [
+    //     {
+    //       label: "Count",
+    //       data: [6, 3, 9, 2, 5, 0,0,0,0,0,0,0],
+    //       backgroundColor: "#091ED0",
+    //       pointBorderColor: "black",
+    //       fill: true,
+    //       tension: 0.4,
+    //     },
+    //   ],
+    // };
+
+    // const options2 = {
+    //   plugins: {
+    //     legend: true,
+    //   },
+    //   scales: {
+    //     y: {},
+    //   },
+    // };
+
+  const [blogCounts, setBlogCounts] = useState(Array(12).fill(0));
+
+  useEffect(() => {
+    const fetchData = async (month) => {
+      try {
+        const adminToken = Cookies.get('adminToken');
+        const headers = {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${adminToken}`,
+        };
+        const response = await axios.get(`https://localhost:7216/api/admin/blogcount?month=${month}&year=2024`, { headers });
+        return response.data.blogCount;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return 0;
+      }
     };
+
+    const fetchBlogCounts = async () => {
+      const counts = [];
+      for (let month = 1; month <= 12; month++) {
+        const count = await fetchData(month);
+        counts.push(count);
+      }
+      setBlogCounts(counts);
+    };
+
+    fetchBlogCounts();
+  }, []);
+
+  const data2 = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: [
+      {
+        label: "Blog Count",
+        data: blogCounts,
+        backgroundColor: "#091ED0",
+        borderColor: "black",
+        pointBorderColor: "black",
+        fill: true,
+        tension: 0.4,
+      },
+    ],
+  };
 
   const options2 = {
     plugins: {
@@ -137,6 +190,63 @@ const Admindashboard = () => {
       y: {},
     },
   };
+
+
+  const [commentCounts, setCommentCounts] = useState(Array(12).fill(0));
+
+useEffect(() => {
+  const fetchData = async (month) => {
+    try {
+      const adminToken = Cookies.get('adminToken');
+      const headers = {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${adminToken}`,
+      };
+      const response = await axios.get(`https://localhost:7216/api/admin/commentcount?month=${month}&year=2024`, { headers });
+      return response.data.commentCount;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return 0;
+    }
+  };
+
+  const fetchCommentCounts = async () => {
+    const counts = [];
+    for (let month = 1; month <= 12; month++) {
+      const count = await fetchData(month);
+      counts.push(count);
+    }
+    setCommentCounts(counts);
+  };
+
+  fetchCommentCounts();
+}, []);
+
+const data3 = {
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  datasets: [
+    {
+      label: "Comment Count",
+      data: commentCounts,
+      backgroundColor: "#FF5733",
+      borderColor: "black",
+      pointBorderColor: "black",
+      fill: true,
+      tension: 0.4,
+    },
+  ],
+};
+
+const options3 = {
+  plugins: {
+    legend: true,
+  },
+  scales: {
+    y: {},
+  },
+};
+
+
 
   const [totalUpvotes, setTotalUpvotes] = useState(0);
 
@@ -378,7 +488,7 @@ const Admindashboard = () => {
             <div className="charts-card">
               <h2 className="chart-title">Most Comments</h2>
               <div className="dataCard customerCard">
-                <Line data={data2} options={options2} />
+                <Line data={data3} options={options3} />
               </div>
             </div>
           </div>
