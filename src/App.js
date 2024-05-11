@@ -14,10 +14,10 @@ import PopularBlogs from './Pages/PopularBlogs';
 import NotificationPage from './Pages/Notifications';
 
 
-import Admindashboard from './Pages/Admindashboard';
+import Admindashboard from './Pages/admindashboard';
 import Admins from './Pages/Admin';
-import Addadmin from './Pages/Addadmin';
-import Adminlogin from './Pages/Adminlogin';
+import Addadmin from './Pages/addadmin';
+import Adminlogin from './Pages/adminlogin';
 import AdminRegister from './Pages/adminregister';
 
 
@@ -35,7 +35,7 @@ const App = () => {
           <Route path='/random-blogs' element={<RandomBlogs />} />
           <Route path='/popular-blogs' element={<PopularBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
-          <Route path='/blog-detail' element={<BlogDetails />} />
+          <Route path='/blog-detail/:id' element={<BlogDetails />} />
           <Route path="/admindashboard" element={<Admindashboard />} />
           <Route path='/admin' element={<Admins />} />
           <Route path='/addadmin' element={<Addadmin />} />

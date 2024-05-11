@@ -21,15 +21,18 @@ const PostCard = (props) => {
               <img className="profile-pic" src={User} alt="" />
               <p className="user-name">{props.postedBy}</p>
               <p className="post-date">{props.postedOn}</p>
-              <p className="post-date text-white"> Popularity: {props.popularity}</p>
+
+              {
+                props.popularity ? <p className="post-date text-white"> Popularity: {props.popularity}</p> : null
+              }
             </div>
-            
+
           </div>
           <div className="card-content">
-            <p style={{fontWeight:"bold"}}>
+            <p style={{ fontWeight: "bold" }}>
               {props.title}
             </p>
-            <p style={{fontWeight:"200"}}>
+            <p style={{ fontWeight: "200" }}>
               {props.content}
             </p>
             {
