@@ -27,7 +27,8 @@ th {
 
 /* Apply style only to the last td */
 td:last-child {
-  width: 100px; /* Adjust the width as needed */
+  width: 100px;
+  /* Adjust the width as needed */
 }
 
 .delete {
@@ -40,7 +41,7 @@ td:last-child {
 This query will take effect for any screen smaller than 760px
 and also iPads specifically. */
 @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+(min-device-width: 768px) and (max-device-width: 1024px) {
   table {
     width: 100%;
   }
@@ -91,7 +92,7 @@ and also iPads specifically. */
   }
 }
 
-.admin-add{
+.admin-add {
   background-color: lightblue;
   width: 12%;
   height: 12%;

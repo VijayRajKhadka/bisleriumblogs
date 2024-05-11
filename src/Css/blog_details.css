@@ -1,15 +1,17 @@
-.blog-container{
+.blog-container {
     width: 70%;
     margin-right: 10px;
-    padding: 10px;   
+    padding: 10px;
     color: white;
 
     border-right: 1px solid rgb(110, 109, 109);
 }
-.blog-main-container{
+
+.blog-main-container {
     display: flex;
 }
-.user-container{
+
+.user-container {
     color: white;
     position: fixed;
     z-index: 999;
@@ -24,40 +26,44 @@
     overflow: hidden;
     border-radius: 20px;
 }
-.user-container h1{
-    font-weight:bold ;
+
+.user-container h1 {
+    font-weight: bold;
     font-size: 20px;
 }
-.blog-user-name{
+
+.blog-user-name {
     font-size: 20px;
     padding-left: 10px;
 }
-.blog-user-bio{
+
+.blog-user-bio {
     color: gray;
     margin-top: 10px;
     font-size: 15px;
     text-align: justify;
 }
 
-.vote-box:hover{
+.vote-box:hover {
     background-color: rgba(128, 128, 128, 0.388);
     border-radius: 20px;
     cursor: pointer;
 }
-.vote-box{
+
+.vote-box {
     padding: 5px;
     margin-right: 10px;
     transition: 0.3s ease-in-out;
 }
-.comment-show{
+
+.comment-show {
     color: gray;
     margin-left: auto;
 }
 
-.comment-contaiter{
+.comment-contaiter {}
 
-}
-.comment-input{
+.comment-input {
     width: 100%;
     height: 60px;
     background-color: #0F1013;
@@ -67,19 +73,21 @@
     color: white;
 }
 
-.edit-blog{
+.edit-blog {
     color: rgb(151, 226, 226);
     margin-right: 20px;
 }
-.delete-blog{
+
+.delete-blog {
     color: rgb(231, 119, 119);
 }
 
-.edit-blog:hover{
+.edit-blog:hover {
     color: aqua;
     cursor: pointer;
 }
-.delete-blog:hover{
+
+.delete-blog:hover {
     color: red;
     cursor: pointer;
 }
@@ -95,7 +103,8 @@
     padding: 20px;
     z-index: 9999;
 }
-.blog-edit-container input{
+
+.blog-edit-container input {
     background-color: transparent;
     color: white;
     padding: 10px;
@@ -109,7 +118,7 @@
 .close-btn {
     position: absolute;
     margin: 20px;
-    width:35px;
+    width: 35px;
     top: -10px;
     right: -10px;
     background-color: rgb(234, 2, 2);

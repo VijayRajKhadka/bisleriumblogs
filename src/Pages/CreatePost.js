@@ -209,7 +209,7 @@ const CreatePost = () => {
                 </div>
                 <ToastContainer />
             </div>
-        </div>
+        </div >
     );
 }
 
