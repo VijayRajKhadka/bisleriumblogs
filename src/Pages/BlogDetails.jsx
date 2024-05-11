@@ -10,7 +10,7 @@ import Image1 from "../Assets/Images/login-background.jpg";
 import NavBar from "../Components/NavBar";
 import GlobalService from "../services/GlobalService";
 import { useParams } from "react-router-dom";
-import { signalR } from "../services/SignalRServices";
+import { signalR, signalRService } from "../services/SignalRServices";
 
 import {
   commentOnBlog,
@@ -107,7 +107,6 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
-    const connection = signalR.startConnection();
 
 
     console.log(id);
@@ -159,12 +158,19 @@ const BlogDetails = () => {
             console.log("🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ res", res)
           }
         )
+        signalRService.connection.start().then(() => {
+          signalRService.connection.invoke("SendNotificationAsync", "userId", "Notification message").then(
+            (res) => {
+              console.log("🚀 ~ signalRService.connection.start ~ res:", res)
+              console.log("🚀 ~ commentOnBlog ~ res:", "Send success")
+            }
+          );
 
-        signalR.connection.invoke("SendMessage", "notificaiton").then(
-          (res) => {
-            console.log("🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ res", res)
-          }
-        )
+
+        }).catch((err) => {
+          console.log("🚀 ~ signalRService.connection.start ~ err:", err)
+
+        });
 
 
         setComment("");

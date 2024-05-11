@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { registerUser } from '../services/AuthServices';
-import NavBar from '../Components/NavBar';
+import NavBar from "../Components/NavBar";
 import SideBar from '../Components/SideBar';
 // import '../Css/login.css';
 

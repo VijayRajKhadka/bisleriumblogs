@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import NavBar from '../Components/NavBar';
+import NavBar from "../Components/NavBar";
 import SideBar from '../Components/SideBar';
 import NotificationCard from '../Components/notification_card';
 import { getAllNotification } from "../services/NotificationServices";

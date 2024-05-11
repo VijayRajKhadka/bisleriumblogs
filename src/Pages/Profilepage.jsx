@@ -8,6 +8,7 @@ import { getLocalStorageItem } from "../services/LocalStorageService";
 import { Toast } from "bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { deleteUser } from "../services/AuthServices";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -29,13 +30,13 @@ const ProfilePage = () => {
     getUserDetails().then(
       (res) => {
         console.log("🚀 ~ useEffect ~ res:", res)
-  
+
         setUser(res);
       }
     )
-}, []);
+  }, []);
 
-   {
+  {
     return (
       <div>
         <NavBar />
@@ -271,7 +272,7 @@ const ProfilePage = () => {
               </div>
             </div>
             <ToastContainer />
-            
+
           </div>
         </div>
       </div>

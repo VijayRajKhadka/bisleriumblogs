@@ -1,25 +1,14 @@
-import { HubConnection, HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
-const startConnection = async (connection) => {
-    try {
-        await connection.start();
-        console.log("SignalR Connected.");
-    } catch (error) {
-        console.error("SignalR Connection Error: ", error);
-    }
+const startConnection = () => {
+    const hubUrl = "https://localhost:7216/notificationhub"; // Replace with your SignalR hub URL
+    const connection = new HubConnectionBuilder()
+        .withUrl(hubUrl)
+        .build();
+
+    return connection;
 };
 
-
-export const signalR = {
-    startConnection: () => {
-        const hubUrl = "https://localhost:7216/notificationhub";
-        const connection = new HubConnectionBuilder()
-            .withUrl(hubUrl)
-            .configureLogging(LogLevel.Information) // Configure logging level
-            .build();
-        console.log("🚀 ~ connection:", connection)
-
-        startConnection(connection);
-        return connection;
-    }
-}
+export const signalRService = {
+    connection: startConnection()
+};

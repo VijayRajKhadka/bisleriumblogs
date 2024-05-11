@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import User from "../Assets/Images/user.png";
 import { getLocalStorageItem } from "../services/LocalStorageService";
 import { getUnreadNotificationCount } from "../services/NotificationServices";
-import { signalR } from "../services/SignalRServices";
+import { signalRService } from "../services/SignalRServices";
 
 
 const NavBar = () => {
@@ -21,11 +21,11 @@ const NavBar = () => {
 
     useEffect(() => {
         console.log("helo there")
-        const connection = signalR.startConnection();
-        console.log("🚀 ~ useEffect ~ connection:", connection)
-        connection.on("ReceiveMessage", (user, message) => {
-            console.log(`New message from ${user}: ${message}`);
-            // Handle the incoming message
+
+
+        signalRService.connection.on("ReceiveNotification", (message) => {
+            console.log("Received notification:", message);
+            showNotiAlert();
         });
 
         getUnreadNotificationCount().then((res) => {
