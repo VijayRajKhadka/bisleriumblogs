@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-
+import axios from 'axios';
 import "../Css/ad.css";
 
 import { chart as charts } from "chart.js/auto";
@@ -41,6 +41,21 @@ const Admindashboard = () => {
   const pageSize = 10;
   const [moreData, setMoreData] = useState(true);
 
+  const [totalBlogs, setTotalBlogs] = useState(0);
+
+  useEffect(() => {
+    const fetchTotalBlogs = async () => {
+      try {
+        const response = await axios.get('https://localhost:7216/api/admin/allBlogCount');
+        // Assuming the API response contains the total number of blogs as a property named "totalBlogs"
+        setTotalBlogs(response.data.totalBlogs);
+      } catch (error) {
+        console.error('Error fetching total blogs:', error);
+      }
+    };
+
+    fetchTotalBlogs();
+  }, []);
 
   useEffect(() => {
       const loadMoreData = async () => {
@@ -159,7 +174,7 @@ const Admindashboard = () => {
                   <h3>POSTS</h3>
                   <span className="material-icons-outlined">inventory_2</span>
                 </div>
-                <h1>12</h1>
+                <h1>{totalBlogs}</h1>
               </div>
               <div className="card">
                 <div className="card-inner">
