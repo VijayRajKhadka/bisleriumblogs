@@ -375,6 +375,25 @@ const options3 = {
     fetchPopularUsers(selectedMonth);
     // window.location.reload();
   };
+
+
+  const [selectedMonth2, setSelectedMonth2] = useState(1); // Default month is January
+  const [topBlogs, setTopBlogs] = useState([]);
+
+  useEffect(() => {
+    fetchTopBlogs(selectedMonth);
+  }, [selectedMonth]);
+
+  const fetchTopBlogs = (month) => {
+    fetch(`https://localhost:7216/api/admin/popularBlogsByMonth?month=${month}&year=2024`)
+      .then(response => response.json())
+      .then(data => setTopBlogs(data))
+      .catch(error => console.error('Error fetching top blogs:', error));
+  };
+
+  const handleMonthChange2 = (event) => {
+    setSelectedMonth(parseInt(event.target.value));
+  };
   
 
   return (
@@ -575,7 +594,50 @@ const options3 = {
     })}
 </center>
   
+  
+<center>
+        <h1 style={{ fontSize: "40px" }}>
+          Top 10 Most Popular Blogs (Specific Month)
+        </h1>
+        <br></br>
+        <select value={selectedMonth2} onChange={handleMonthChange2}>
+          <option value={1}>January</option>
+          <option value={2}>February</option>
+          <option value={3}>March</option>
+          <option value={4}>April</option>
+          <option value={5}>May</option>
+          <option value={6}>June</option>
+          <option value={7}>July</option>
+          <option value={8}>August</option>
+          <option value={9}>September</option>
+          <option value={10}>October</option>
+          <option value={11}>November</option>
+          <option value={12}>December</option>
+        </select>
+        <br />
+      </center>
 
+      <div className="tables">
+        <div className="left-div">
+          {topBlogs.map((blog, index) => (
+            <div className="top-blogs" key={blog.id}>
+              <div className="blog">
+                <h1>{index + 1}</h1>
+                <div className="blog-content">
+                  <h2>{blog.title}</h2>
+                  <p>{blog.content}</p>
+                </div>
+                <div className="blog-author">
+                  <strong>Author: </strong>{`${blog.user.firstName} ${blog.user.lastName}`}
+                </div>
+                <div className="blog-image">
+                  <img src={blog.images[0]} alt="Blog" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
 
           
