@@ -14,6 +14,8 @@ import Sidebar from "./AdminSidebar";
 import { getAllBlogs } from "../services/BlogServices";
 import PostCard from "../Components/post_card";
 
+import axios from 'axios';
+
 import {
   Chart as ChartJS,
   LineElement,
@@ -156,6 +158,21 @@ const Admindashboard = () => {
       },
     };
 
+    const [totalUpvotes, setTotalUpvotes] = useState(0);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('https://localhost:7216/api/admin/totalUpvotes');
+          setTotalUpvotes(response.data.totalUpvotes); // Assuming the API response contains the totalUpvotes property
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+
     
 
     return (
@@ -181,7 +198,7 @@ const Admindashboard = () => {
                   <h3>UPVOTE</h3>
                   <span className="material-icons-outlined">category</span>
                 </div>
-                <h1>15</h1>
+                <h1>{totalUpvotes}</h1>
               </div>
               <div className="card">
                 <div className="card-inner">
