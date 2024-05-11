@@ -10,6 +10,8 @@ import Image1 from "../Assets/Images/login-background.jpg";
 import NavBar from "../Components/NavBar";
 import GlobalService from "../services/GlobalService";
 import { useParams } from "react-router-dom";
+import { signalR } from "../services/SignalRServices";
+
 import {
   commentOnBlog,
   deleteBLog,
@@ -28,6 +30,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { uploadPhoto } from "../config/Config";
 import { v4 } from "uuid";
 import { sendNotification } from "../services/NotificationServices";
+// import { signalR } from "../services/SignalRService";
 
 
 const BlogDetails = () => {
@@ -104,6 +107,7 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
+    const connection = signalR.startConnection();
 
 
     console.log(id);
@@ -151,6 +155,12 @@ const BlogDetails = () => {
         }
 
         sendNotification(notifPayload).then(
+          (res) => {
+            console.log("🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ res", res)
+          }
+        )
+
+        signalR.connection.invoke("SendMessage", "notificaiton").then(
           (res) => {
             console.log("🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ res", res)
           }
