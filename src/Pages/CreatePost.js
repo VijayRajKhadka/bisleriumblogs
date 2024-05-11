@@ -62,7 +62,6 @@ const CreatePost = () => {
     }
 
     const handleCreatePost = () => {
-        var success = false;
         if (getLocalStorageItem('token') === null) {
             alert("Please Login First");
             return;
@@ -94,7 +93,20 @@ const CreatePost = () => {
                         }
                         console.log("🚀 ~ handleCreatePost ~ payload:", payload)
 
-                        success = await addBlog(payload);
+                        addBlog(payload).then((res) => {
+                            if (res) {
+                                toast.success(' Successful!', {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                });
+                            }
+                        })
 
                         handelClear();
 
@@ -116,38 +128,22 @@ const CreatePost = () => {
                 }
                 console.log("🚀 ~ handleCreatePost ~ payload:", payload)
 
-                success = addBlog(payload);
+                addBlog(payload).then((res) => {
+                    if (res) {
+                        toast.success(' Successful!', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    }
+                });
                 handelClear()
             }
-
-            if (success) {
-                toast.success(' Successful!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-            } else {
-                toast.error('Failed!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    // transition: Bounce,
-                });
-            }
-
-
-
-
         } else {
             console.log('Validation failed');
             toast.error('Login Failed!', {
