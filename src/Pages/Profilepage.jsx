@@ -32,9 +32,11 @@ const ProfilePage = () =>{
                   className="profile-picture"
                 />
               </center>
-              <h1 className="profile-name">@{user.userName}</h1>
-              <p className="profile-bio">{user.email}</p>
-              <p className="profile-bio">{user.bio}</p>
+
+              <h1 className="profile-name">{user?.userName || "No username available"}</h1>
+              <p className="profile-bio">{user?.email || "No email available"}</p>
+              <p className="profile-bio">{user?.bio || "No bio available"}</p>
+
 
             </div>
 
