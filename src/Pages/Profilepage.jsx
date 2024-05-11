@@ -4,20 +4,20 @@ import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
 import { getUserDetails } from "../services/UserServices";
 
-const ProfilePage = () =>{
-  const [user, setUser]= useState(null);
+const ProfilePage = () => {
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     getUserDetails().then(
       (res) => {
         console.log("🚀 ~ useEffect ~ res:", res)
-  
+
         setUser(res);
       }
     )
-}, []);
+  }, []);
 
-   {
+  {
     return (
       <div>
         <NavBar />
@@ -102,7 +102,7 @@ const ProfilePage = () =>{
                       <label htmlFor="bio">Bio</label>
                       <textarea id="bio" name="bio" />
                     </div>
-                    <input type="file" id="image" name="image"  accept="image/*" className="form-input w-full text-white rounded-md border border-white bg-transparent" onChange={(e) => (e.target.files[0])} />
+                    <input type="file" id="image" name="image" accept="image/*" className="form-input w-full text-white rounded-md border border-white bg-transparent" onChange={(e) => (e.target.files[0])} />
 
                     <center>
                       <button type="submit" className="btn ">
@@ -158,7 +158,7 @@ const ProfilePage = () =>{
               </div>
             </div>
 
-            
+
           </div>
         </div>
       </div>
