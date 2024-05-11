@@ -82,5 +82,30 @@ export const loginAdmin = async (payload) => {
     });
 }
 
+export const deleteUser = async () => {
+    return new Promise(async (resolve, reject) => {
+        const headers = {
+            "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
+        };
+
+        try {
+            const response = await axios.delete(`https://localhost:7216/api/user/delete`,{ headers: headers });
+            console.log("========================");
+            console.log(response);
+            console.log("========================");
+            if (response.data == true) {
+                localStorage.clear();
+                window.location.href="/"
+                console.log("password changed")
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+
+        } catch {
+            reject(false);
+        }
+    });
+}
 
 

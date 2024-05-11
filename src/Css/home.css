@@ -139,4 +139,22 @@ nav ul li i {
     transition: 5;
     cursor: pointer;
 }
+.new-post-go-up {
 
+    border: 1px solid #66FCF1;
+    
+    width: 10%; 
+    padding: 5px;
+    font-size: 10px;
+    border-radius: 10px;
+    position: fixed;
+    right: 40px; 
+    transform: translateX(50%); 
+}
+
+.new-post-go-up:hover{
+    color: black;
+    background-color: #66FCF1;
+    transition: 0.3s ease-in-out;
+
+}

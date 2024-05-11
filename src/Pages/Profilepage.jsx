@@ -29,13 +29,13 @@ const ProfilePage = () => {
     getUserDetails().then(
       (res) => {
         console.log("🚀 ~ useEffect ~ res:", res)
-
+  
         setUser(res);
       }
     )
-  }, []);
+}, []);
 
-  {
+   {
     return (
       <div>
         <NavBar />
@@ -80,7 +80,7 @@ const ProfilePage = () => {
               <br />
 
               <div className="profile-button">
-                <a className="profile-button" href="#popup2" style={{ color: " red" }}>
+                <a className="profile-button" onClick={deleteUser} style={{ color: " red" }}>
                   Delete Account
                 </a>
               </div>
@@ -271,7 +271,7 @@ const ProfilePage = () => {
               </div>
             </div>
             <ToastContainer />
-
+            
           </div>
         </div>
       </div>
