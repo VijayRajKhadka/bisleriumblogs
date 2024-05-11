@@ -2,10 +2,6 @@ import React, { Component, useEffect, useState } from "react";
 import "../Css/profile.css";
 import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
-<<<<<<< HEAD
-import { getUserDetails } from "../services/UserServices";
-import { deleteUser } from '../services/AuthServices';
-=======
 import { getUserDetails, updateUserDetails } from "../services/UserServices";
 import { get } from "firebase/database";
 import { getLocalStorageItem } from "../services/LocalStorageService";
@@ -27,7 +23,6 @@ const ProfilePage = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
->>>>>>> a2125d70d677da399c21e36ad1703dcf2c9ed6b3
 
 
   useEffect(() => {
@@ -85,11 +80,7 @@ const ProfilePage = () => {
               <br />
 
               <div className="profile-button">
-<<<<<<< HEAD
                 <a className="profile-button" onClick={deleteUser} style={{ color: " red" }}>
-=======
-                <a className="profile-button" href="#popup2" style={{ color: " red" }}>
->>>>>>> a2125d70d677da399c21e36ad1703dcf2c9ed6b3
                   Delete Account
                 </a>
               </div>
