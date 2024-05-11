@@ -1,6 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
 import "../Css/ad.css";
-import Cookies from 'js-cookie'; 
 
 import { chart as charts } from "chart.js/auto";
 
@@ -49,22 +48,25 @@ const Admindashboard = () => {
 
 
 
+
+
   const [totalBlogs, setTotalBlogs] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const adminToken = Cookies.get('adminToken'); 
+        // Fetch the admin token from cookies
+        const adminToken = Cookies.get('adminToken'); // Replace 'adminToken' with the name of your admin token cookie
         
         const headers = {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${adminToken}`, 
+          'Authorization': `Bearer ${adminToken}`, // Include the admin token in the Authorization header
         };
   
         const response = await axios.get('https://localhost:7216/api/admin/allBlogCount', { headers });
-        setTotalBlogs(response.data.totalBlogs);
+        setTotalBlogs(response.data.blogCount); 
       } catch (error) {
-        console.error('Error fetching total blogs:', error);
+        console.error('Error fetching data:', error);
       }
     };
   
@@ -218,7 +220,28 @@ useEffect(() => {
 }, []);
 
 
+const [allCommentCount, setallCommentCount] = useState(0);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const adminToken = Cookies.get('adminToken');
       
+      const headers = {
+        'Authorization': `Bearer ${adminToken}`,
+      };
+
+      const response = await axios.get('https://localhost:7216/api/admin/allCommentCount', { headers });
+      setallCommentCount(response.data.blogCount); 
+      console.log(response);
+      console.log(allCommentCount);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+}, []);  
 
 
     
@@ -260,7 +283,7 @@ useEffect(() => {
                   <h3>COMMENTS</h3>
                   <span className="material-icons-outlined">groups</span>
                 </div>
-                <h1>18</h1>
+                <h1>{allCommentCount}</h1>
               </div>
               <div className="card">
                 <div className="card-inner">
