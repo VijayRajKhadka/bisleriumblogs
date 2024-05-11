@@ -60,7 +60,7 @@ export const loginAdmin = async (payload) => {
             const response = await axios.post(`https://localhost:7216/api/authenticate/admin/login`, payload, { headers: headers });
             console.log("========================");
             console.log(response.data);
-            Cookies.set('token', response.data.message); // Use Cookies.set() to set the cookie
+            Cookies.set('adminToken', response.data.message); // Use Cookies.set() to set the cookie
             console.log("========================");
             if (response.data.status == 'Success') {
                 getUserDetails()
