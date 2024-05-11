@@ -24,6 +24,9 @@ const Admindashboard = () => {
   const pageSize = 10;
   const [moreData, setMoreData] = useState(true);
 
+
+
+
   const [totalBlogs, setTotalBlogs] = useState(0);
 
   useEffect(() => {
@@ -47,95 +50,39 @@ const Admindashboard = () => {
     fetchData();
   }, []);
 
+  
+
+
+
   useEffect(() => {
-    const loadMoreData = async () => {
-      try {
-        setLoading(true);
-        const newData = await getAllBlogs(page);
-        if (Array.isArray(newData) && newData.length > 0) {
-          var newArr = [...blogs, ...newData];
-          setBlogs(newArr);
-          var newPage = page + 1;
-          setPage(newPage);
-        } else {
-          setMoreData(false);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setMoreData(false);
-      } finally {
-        setLoading(false);
+    const adminToken = Cookies.get('adminToken');
+
+    // Fetching data from the API
+    fetch('https://localhost:7216/api/admin/popularBlogs',{
+      headers: {
+        'Authorization': `Bearer ${adminToken}`
       }
-    };
 
-    if (moreData && !loading) {
-      loadMoreData();
-    }
-  }, [page, pageSize, moreData, loading]);
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      var newPage = page + 1;
-      setPage(newPage);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    })
+      .then(response => response.json())
+      .then(data => setBlogs(data))
+      .catch(error => console.error('Error fetching blogs:', error));
   }, []);
 
+    
+      
+       
+      
+    
+    
+
+
+
+
+
 
   
-    const data = {
-      labels: ["mon", "tue", "wed"],
-      datasets: [
-        {
-          label: "Sales of the Week",
-          data: [6, 3, 9],
-          backgroundColor: "aqua",
-          borderColor: "black",
-          pointBorderColor: "aqua",
-          fill: true,
-          tension: 0.4,
-        },
-      ],
-    };
-
-    const options = {
-      plugins: {
-        legend: true,
-      },
-      scales: {
-        y: {},
-      },
-    };
   
-    // const data2 = {
-    //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    //   datasets: [
-    //     {
-    //       label: "Count",
-    //       data: [6, 3, 9, 2, 5, 0,0,0,0,0,0,0],
-    //       backgroundColor: "#091ED0",
-    //       pointBorderColor: "black",
-    //       fill: true,
-    //       tension: 0.4,
-    //     },
-    //   ],
-    // };
-
-    // const options2 = {
-    //   plugins: {
-    //     legend: true,
-    //   },
-    //   scales: {
-    //     y: {},
-    //   },
-    // };
 
   const [blogCounts, setBlogCounts] = useState(Array(12).fill(0));
 
@@ -352,6 +299,37 @@ const options3 = {
     fetchData();
   }, []);
 
+
+  const [downvoteData, setDownvoteData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const adminToken = Cookies.get('adminToken');
+        const downdata = [];
+        const monthNames = [
+          'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        ];
+        for (let month = 1; month <= 12; month++) {
+          const response = await axios.get(`https://localhost:7216/api/admin/downvoteSum?month=${month}&year=2024`, {
+            headers: {
+              Authorization: `Bearer ${adminToken}`,
+            },
+          });
+          downdata.push({ label: monthNames[month - 1], value: response.data.downvoteSum });
+        }
+        setDownvoteData(downdata);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  
+
   return (
     <div>
       <div className="grid-container">
@@ -447,43 +425,57 @@ const options3 = {
               </div>
             </div>
             <div className="charts-card">
-              <h2 className="chart-title">Most Downvotes</h2>
-              <div className="dataCard customerCard">
-                <Bar
-                  data={{
-                    labels: sourceData.map((data) => data.label),
-                    datasets: [
-                      {
-                        label: "Downvotes per month",
-                        data: sourceData.map((data) => data.value),
-                        backgroundColor: [
-                          "rgba(43, 63, 229, 0.8)",
-                          "rgba(250, 192, 19, 0.8)",
-                          "rgba(253, 135, 135, 0.8)",
-                          "rgba(255, 0, 0, 0.8)",
-                          "rgba(0, 255, 0, 0.8)",
-                          "rgba(0, 0, 255, 0.8)",
-                          "rgba(255, 255, 0, 0.8)",
-                          "rgba(255, 0, 255, 0.8)",
-                          "rgba(128, 128, 128, 0.8)",
-                          "rgba(255, 165, 0, 0.8)",
-                          "rgba(0, 255, 255, 0.8)",
-                          "rgba(255, 255, 255, 0.8)",
-                        ],
-                        borderRadius: 5,
-                      },
-                    ],
-                  }}
-                  options={{
-                    plugins: {
-                      title: {
-                        text: "Revenue Source",
-                      },
-                    },
-                  }}
-                />
-              </div>
-            </div>
+      <h2 className="chart-title">Most Downvotes</h2>
+      <div className="dataCard customerCard">
+        <Bar
+          data={{
+            labels: downvoteData.map(data => data.label),
+            datasets: [
+              {
+                label: 'Downvotes per month',
+                data: downvoteData.map(data => data.value),
+                backgroundColor: [
+                  'rgba(43, 63, 229, 0.8)',
+                  'rgba(250, 192, 19, 0.8)',
+                  'rgba(253, 135, 135, 0.8)',
+                  'rgba(255, 0, 0, 0.8)',
+                  'rgba(0, 255, 0, 0.8)',
+                  'rgba(0, 0, 255, 0.8)',
+                  'rgba(255, 255, 0, 0.8)',
+                  'rgba(255, 0, 255, 0.8)',
+                  'rgba(128, 128, 128, 0.8)',
+                  'rgba(255, 165, 0, 0.8)',
+                  'rgba(0, 255, 255, 0.8)',
+                  'rgba(255, 255, 255, 0.8)',
+                ],
+                borderRadius: 5,
+              },
+            ],
+          }}
+          options={{
+            plugins: {
+              title: {
+                text: 'Revenue Source',
+              },
+            },
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Month',
+                },
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Downvotes',
+                },
+              },
+            },
+          }}
+        />
+      </div>
+    </div>
 
             <div className="charts-card">
               <h2 className="chart-title">Most Comments</h2>
@@ -494,47 +486,52 @@ const options3 = {
           </div>
           <br></br>
 
-          <center>
-            <h1 style={{ fontSize: "50px" }}>Top 10 Most Popular Blogs</h1>
-            <br></br>
-          </center>
-          <center>
-            {blogs &&
-              blogs.map((blog, index) => {
-                return (
-                  <div key={blog.id} style={{ position: "relative" }}>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "5%",
-                        left: 0,
-                        transform: "translateY(-50%)",
-                        padding: "5px",
-                      }}
-                    >
-                      <span style={{ fontSize: "50px" }}> {index + 1}</span>
-                    </div>
 
-                    <PostCard
-                      title={blog.title}
-                      content={blog.content}
-                      imageUrl={blog.images[0]}
-                      postedBy={blog.user.userName}
-                      postedOn={blog.postedOn}
-                      score={blog.score}
-                      comments={blog.comments}
-                      id={blog.id}
-                      likedByMe={blog.likedByMe}
-                      savedByMe={blog.savedByMe}
-                    />
-                  </div>
-                );
-              })}
 
-            {!loading && !moreData && <div>No more data</div>}
-          </center>
-          <br></br>
-          <br></br>
+   
+
+<center>
+  <h1 style={{ fontSize: "50px" }}>Top 10 Most Popular Blogs</h1>
+  <br></br>
+</center>
+<center>
+  {blogs &&
+    blogs.map((blog, index) => {
+      return (
+        <div key={blog.id} style={{ position: "relative" }}>
+          <div
+            style={{
+              position: "absolute",
+              top: "5%",
+              left: 0,
+              transform: "translateY(-50%)",
+              padding: "5px",
+            }}
+          >
+            <span style={{ fontSize: "50px" }}> {index + 1}</span>
+          </div>
+
+          <PostCard
+            title={blog.title}
+            content={blog.content}
+            imageUrl={blog.images[0]}
+            postedBy={blog.user.userName}
+            postedOn={blog.createdDateTime}
+            score={blog.popularityScore}
+            comments={blog.commentCount}
+            id={blog.id}
+            likedByMe={blog.isLikedByMe}
+            savedByMe={blog.isSavedByMe}
+          />
+        </div>
+      );
+    })}
+</center>
+  
+
+
+
+          
 
           <center>
             <h1 style={{ fontSize: "40px" }}>
