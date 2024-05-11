@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import "../Css/ad.css";
+import Cookies from 'js-cookie'; 
 
 import { chart as charts } from "chart.js/auto";
 
@@ -176,15 +177,49 @@ const Admindashboard = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get('https://localhost:7216/api/admin/totalUpvotes');
-          setTotalUpvotes(response.data.totalUpvotes); // Assuming the API response contains the totalUpvotes property
+          // Fetch the admin token from cookies
+          const adminToken = Cookies.get('adminToken'); // Replace 'adminToken' with the name of your admin token cookie
+          
+          const headers = {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${adminToken}`, // Include the admin token in the Authorization header
+          };
+    
+          const response = await axios.get('https://localhost:7216/api/admin/totalUpvotes', { headers });
+          setTotalUpvotes(response.data.totalUpvotes); 
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       };
-  
+    
       fetchData();
     }, []);
+
+    const [totalDownvotes, setTotalDownvotes] = useState(0);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const adminToken = Cookies.get('adminToken');
+      
+      const headers = {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${adminToken}`,
+      };
+
+      const response = await axios.get('https://localhost:7216/api/admin/totalDownvotes', { headers });
+      setTotalDownvotes(response.data.totalDownvotes); 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+
+      
+
 
     
 
@@ -218,7 +253,7 @@ const Admindashboard = () => {
                   <h3>DOWNVOTE</h3>
                   <span className="material-icons-outlined">groups</span>
                 </div>
-                <h1>13</h1>
+                <h1>{totalDownvotes}</h1>
               </div>
               <div className="card">
                 <div className="card-inner">
