@@ -1,5 +1,4 @@
 import React, { Component, useEffect, useState } from "react";
-import axios from 'axios';
 import "../Css/ad.css";
 
 import { chart as charts } from "chart.js/auto";
@@ -13,7 +12,7 @@ import Sidebar from "./AdminSidebar";
 
 import { getAllBlogs } from "../services/BlogServices";
 import PostCard from "../Components/post_card";
-
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import {
@@ -43,21 +42,35 @@ const Admindashboard = () => {
   const pageSize = 10;
   const [moreData, setMoreData] = useState(true);
 
+
+ 
+
+
+
+
   const [totalBlogs, setTotalBlogs] = useState(0);
 
   useEffect(() => {
-    const fetchTotalBlogs = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('https://localhost:7216/api/admin/allBlogCount');
-        // Assuming the API response contains the total number of blogs as a property named "totalBlogs"
+        const adminToken = Cookies.get('adminToken'); 
+        
+        const headers = {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${adminToken}`, 
+        };
+  
+        const response = await axios.get('https://localhost:7216/api/admin/allBlogCount', { headers });
         setTotalBlogs(response.data.totalBlogs);
       } catch (error) {
         console.error('Error fetching total blogs:', error);
       }
     };
-
-    fetchTotalBlogs();
+  
+    fetchData();
   }, []);
+
+
 
   useEffect(() => {
       const loadMoreData = async () => {
