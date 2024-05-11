@@ -42,7 +42,7 @@ export default class Sidebar extends Component {
              </a>
            </li>
            <li className="sidebar-list-item">
-             <a href="/addadmin" target="_blank">
+             <a href="/Admin" target="_blank">
                <span className="material-icons-outlined">inventory_2</span>{" "}
                Add Admin
              </a>

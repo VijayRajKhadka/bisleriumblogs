@@ -123,7 +123,7 @@ const Adminlogin = () => {
                 }}
               />
               
-              <button onClick={handleLogin}>Login</button>
+              <span onClick={handleLogin}>Login</span>
               <p className="message">Not registered? <a href="#">Create an account</a></p>
             </form>
             <ToastContainer />
