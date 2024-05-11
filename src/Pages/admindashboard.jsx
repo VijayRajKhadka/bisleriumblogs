@@ -15,24 +15,7 @@ import PostCard from "../Components/post_card";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-import {
-  Chart as ChartJS,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Legend,
-  Tooltip,
-} from "chart.js";
 
-ChartJS.register(
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Legend,
-  Tooltip
-);
 
 const Admindashboard = () => {
   const [blogs, setBlogs] = useState([]);
@@ -53,12 +36,9 @@ const Admindashboard = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${adminToken}`, // Include the admin token in the Authorization header
         };
-
-        const response = await axios.get(
-          "https://localhost:7216/api/admin/allBlogCount",
-          { headers }
-        );
-        setTotalBlogs(response.data.blogCount);
+  
+        const response = await axios.get('https://localhost:7216/api/admin/allBlogCount', { headers });
+        setTotalBlogs(response.data.blogCount); 
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -108,57 +88,46 @@ const Admindashboard = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const data = {
-    labels: ["mon", "tue", "wed"],
-    datasets: [
-      {
-        label: "Sales of the Week",
-        data: [6, 3, 9],
-        backgroundColor: "aqua",
-        borderColor: "black",
-        pointBorderColor: "aqua",
-        fill: true,
-        tension: 0.4,
-      },
-    ],
-  };
 
-  const options = {
-    plugins: {
-      legend: true,
-    },
-    scales: {
-      y: {},
-    },
-  };
+  
+    const data = {
+      labels: ["mon", "tue", "wed"],
+      datasets: [
+        {
+          label: "Sales of the Week",
+          data: [6, 3, 9],
+          backgroundColor: "aqua",
+          borderColor: "black",
+          pointBorderColor: "aqua",
+          fill: true,
+          tension: 0.4,
+        },
+      ],
+    };
 
-  const data2 = {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    datasets: [
-      {
-        label: "Count",
-        data: [6, 3, 9, 2, 5, 0, 0, 0, 0, 0, 0, 0],
-        backgroundColor: "#091ED0",
-        // borderColor: "black",
-        pointBorderColor: "black",
-        fill: true,
-        tension: 0.4,
+    const options = {
+      plugins: {
+        legend: true,
       },
-    ],
-  };
+      scales: {
+        y: {},
+      },
+    };
+  
+    const data2 = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      datasets: [
+        {
+          label: "Count",
+          data: [6, 3, 9, 2, 5, 0,0,0,0,0,0,0],
+          backgroundColor: "#091ED0",
+          // borderColor: "black",
+          pointBorderColor: "black",
+          fill: true,
+          tension: 0.4,
+        },
+      ],
+    };
 
   const options2 = {
     plugins: {
