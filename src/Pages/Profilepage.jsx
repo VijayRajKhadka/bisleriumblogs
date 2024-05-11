@@ -3,6 +3,7 @@ import "../Css/profile.css";
 import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
 import { getUserDetails } from "../services/UserServices";
+import { deleteUser } from '../services/AuthServices';
 
 const ProfilePage = () =>{
   const [user, setUser]= useState(null);
@@ -42,16 +43,16 @@ const ProfilePage = () =>{
 
             <br></br>
             <center>
-              <div className="button">
-                <a className="button" href="#popup1">
+              <div className="profile-button">
+                <a className="profile-button" href="#popup1">
                   Update Profile
                 </a>
               </div>
               <br />
               <hr style={{ width: "90%" }} />
               <br />
-              <div className="button">
-                <a className="button" href="#popup2">
+              <div className="profile-button">
+                <a className="profile-button" href="#popup2">
                   Change Password
                 </a>
               </div>
@@ -60,8 +61,8 @@ const ProfilePage = () =>{
               <hr style={{ width: "90%" }} />
               <br />
 
-              <div className="button">
-                <a className="button" href="#popup2" style={{ color: " red" }}>
+              <div className="profile-button">
+                <a className="profile-button" onClick={deleteUser} style={{ color: " red" }}>
                   Delete Account
                 </a>
               </div>
