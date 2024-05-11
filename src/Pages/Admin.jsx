@@ -6,15 +6,21 @@ import "../Css/adminlist.css";
 import Sidebar from "./AdminSidebar";
 
 
-export default class Admins extends Component {
-  render() {
+const Addadmin = () => {
+  
     return (
         <div>
         <div className="grid-container">
         <Sidebar/>
 
         <main className="main-container">
-          <button className='admin-add'>Add Admin</button>
+        <button className='admin-add' style={{ backgroundColor: 'green' }}>
+          <a href="/Addadmin" target="_blank">
+            <span className="material-icons-outlined">inventory_2</span>{" "}
+            Add Admin
+          </a>
+        </button>
+
         <table>
             <thead>
                 <tr>
@@ -48,4 +54,5 @@ export default class Admins extends Component {
       
     )
   }
-}
+  
+export default Addadmin;
