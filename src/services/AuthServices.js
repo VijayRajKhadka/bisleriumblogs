@@ -37,6 +37,8 @@ export const loginUser = async (payload) => {
             console.log(getLocalStorageItem('token'));
             if (response.data.status == 'Success') {
                 getUserDetails()
+                setLocalStorageItem('password', payload.password);
+                console.log(getLocalStorageItem('password'));
                 resolve(true);
             } else {
                 resolve(false);

@@ -7,6 +7,8 @@ import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
 import { getAllBlogs } from "../services/BlogServices";
 import { timeAgo } from "../helper/DateTimeHelper";
+import { get } from "firebase/database";
+import { getLocalStorageItem } from "../services/LocalStorageService";
 const Home = () => {
     const [blogs, setBlogs] = useState([])
     const [page, setPage] = useState(1);
@@ -61,6 +63,7 @@ const Home = () => {
     };
 
     useEffect(() => {
+        console.log(getLocalStorageItem('password'));
         window.addEventListener('scroll', handleScroll);
         return () =>
             window.removeEventListener('scroll', handleScroll);

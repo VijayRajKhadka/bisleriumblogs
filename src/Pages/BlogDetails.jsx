@@ -27,6 +27,7 @@ import { timeAgo } from "../helper/DateTimeHelper";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { uploadPhoto } from "../config/Config";
 import { v4 } from "uuid";
+import { sendNotification } from "../services/NotificationServices";
 
 
 const BlogDetails = () => {
@@ -144,6 +145,18 @@ const BlogDetails = () => {
           "🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ res",
           res
         );
+        var notifPayload = {
+          userId: blogDetails.user.userId,
+          message: `${blogDetails.user.userName} commented on your blog ${blogDetails.title} as ${comment}`,
+        }
+
+        sendNotification(notifPayload).then(
+          (res) => {
+            console.log("🚀 ~ file: BlogDetails.jsx ~ line 120 ~ handleComment ~ res", res)
+          }
+        )
+
+
         setComment("");
         getAllComments(id).then((res) => {
           setComments(res);
