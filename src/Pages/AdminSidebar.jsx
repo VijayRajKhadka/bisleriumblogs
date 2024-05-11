@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 export default class Sidebar extends Component {
   render() {
     return (
@@ -12,7 +13,7 @@ export default class Sidebar extends Component {
          </div>
          <div className="header-right">
            
-           <span className="material-icons-outlined">account_circle</span>
+          <a href="#" style={{ color: "red" }} onClick={handleLogout} >Logout</a>
          </div>
        </header>
        {/* End Header */}
