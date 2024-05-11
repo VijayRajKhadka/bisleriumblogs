@@ -81,8 +81,8 @@
 
 .notification-box-content {
     display: flex;
-    align-items: center; /* Align items vertically */
-    margin-right: 16px; /* Add spacing between icon and text */
+    align-items: center; 
+    margin-right: 16px; 
     width: 50%;
     justify-content: center;
     background-color: transparent;
@@ -92,7 +92,7 @@
 }
 
 .notification-box-content p {
-    margin: 0; /* Remove default margin */
+    margin: 0; 
     color: #fff;
     text-align: start;
 
@@ -100,9 +100,10 @@
 }
 
 .notification-box-content svg {
-    margin-right: 19px; /* Add spacing between icon and text */
+    margin-right: 19px; 
     color: #fff;
     text-align: start;
+
 
 }
 
@@ -115,19 +116,23 @@
     margin:10px;
     border-radius: 10px;
     background-color: #242526;
+    
 }
 
 .icon-container {
     display: flex;
-    flex-direction: column; /* Stack icons vertically */
-    align-items: center; /* Align icons horizontally */
+    flex-direction: column; 
+    align-items: center; 
 }
 
 .notification-icon {
-    margin-bottom: 5px; /* Adjust the spacing between the icons */
+    margin-bottom: 5px;
 }
 
 .notification-badge {
+    display: flex;
+    justify-self: center;
+    align-items: center;
     position: absolute;
     top: 10;
     right: 10;
@@ -136,5 +141,14 @@
     background-color: red;
     border-radius: 50%;
     z-index: 10; 
+    font-size: 10px;
 }
 
+
+.noti-gap{
+    margin-right: 15px;
+}
+
+.noti-gap:hover{
+    cursor: pointer;
+}
