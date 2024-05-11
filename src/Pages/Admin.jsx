@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react';
+import Cookies from "js-cookie";
 
 
 import "../Css/adminlist.css";
@@ -6,7 +7,22 @@ import "../Css/adminlist.css";
 import Sidebar from "./AdminSidebar";
 
 
-const Addadmin = () => {
+const Admin = () => {
+
+  const [adminUsers, setAdminUsers] = useState([]);
+
+  useEffect(() => {
+    const adminToken = Cookies.get('adminToken');
+
+    fetch('https://localhost:7216/api/admin/getAllAdminUser', {
+      headers: {
+        'Authorization': `Bearer ${adminToken}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => setAdminUsers(data))
+      .catch(error => console.error('Error fetching admin users:', error));
+  }, []);
   
     return (
         <div>
@@ -22,27 +38,29 @@ const Addadmin = () => {
         </button>
 
         <table>
-            <thead>
-                <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email Address</th>
-                <th>Bio</th>
-                <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td data-column="First Name">James</td>
-                <td data-column="Last Name">Matman</td>
-                <td data-column="Job Title">Chief Sandwich Eater</td>
-                <td data-column="Twitter">@james</td>
-                <td data-column="Action"><button className='delete'>Delete</button></td>
-
-                </tr>
-                
-            </tbody>
-            </table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Bio</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {adminUsers.map(user => (
+            <tr key={user.userId}>
+              <td>{user.firstName}</td>
+              <td>{user.lastName}</td>
+              <td>{user.email}</td>
+              <td>{user.bio}</td>
+              <td>
+                <button className='delete'>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
           </main>
 
@@ -54,5 +72,5 @@ const Addadmin = () => {
       
     )
   }
-  
-export default Addadmin;
+
+export default Admin;
