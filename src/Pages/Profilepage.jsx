@@ -2,10 +2,28 @@ import React, { Component, useEffect, useState } from "react";
 import "../Css/profile.css";
 import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
-import { getUserDetails } from "../services/UserServices";
+import { getUserDetails, updateUserDetails } from "../services/UserServices";
+import { get } from "firebase/database";
+import { getLocalStorageItem } from "../services/LocalStorageService";
+import { Toast } from "bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
+
+
+  //update profile state
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [bio, setBio] = useState("");
+
+
+  //channge password state
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
 
   useEffect(() => {
     getUserDetails().then(
@@ -34,6 +52,7 @@ const ProfilePage = () => {
               </center>
 
               <h1 className="profile-name">{user?.userName || "No username available"}</h1>
+              <h1 className="profile-name">{user?.firstName || "No username available"} {user?.lastName || "No username available"}</h1>
               <p className="profile-bio">{user?.email || "No email available"}</p>
               <p className="profile-bio">{user?.bio || "No bio available"}</p>
 
@@ -42,16 +61,16 @@ const ProfilePage = () => {
 
             <br></br>
             <center>
-              <div className="button">
-                <a className="button" href="#popup1">
+              <div className="profile-button">
+                <a className="profile-button" href="#popup1">
                   Update Profile
                 </a>
               </div>
               <br />
               <hr style={{ width: "90%" }} />
               <br />
-              <div className="button">
-                <a className="button" href="#popup2">
+              <div className="profile-button">
+                <a className="profile-button" href="#popup2">
                   Change Password
                 </a>
               </div>
@@ -60,8 +79,8 @@ const ProfilePage = () => {
               <hr style={{ width: "90%" }} />
               <br />
 
-              <div className="button">
-                <a className="button" href="#popup2" style={{ color: " red" }}>
+              <div className="profile-button">
+                <a className="profile-button" href="#popup2" style={{ color: " red" }}>
                   Delete Account
                 </a>
               </div>
@@ -86,6 +105,7 @@ const ProfilePage = () => {
                         type="text"
                         id="first-name"
                         name="first-name"
+                        onChange={(e) => setFirstName(e.target.value)}
                         required
                       />
                     </div>
@@ -95,17 +115,43 @@ const ProfilePage = () => {
                         type="text"
                         id="last-name"
                         name="last-name"
+                        onChange={(e) => setLastName(e.target.value)}
                         required
                       />
                     </div>
                     <div className="form-group">
                       <label htmlFor="bio">Bio</label>
-                      <textarea id="bio" name="bio" />
+                      <textarea id="bio" name="bio"
+                        onChange={(e) => setBio(e.target.value)}
+                      />
                     </div>
                     <input type="file" id="image" name="image" accept="image/*" className="form-input w-full text-white rounded-md border border-white bg-transparent" onChange={(e) => (e.target.files[0])} />
 
                     <center>
-                      <button type="submit" className="btn ">
+                      <button type="submit" className="btn " onClick={() => {
+                        if (firstName.length > 0 && lastName.length > 0 && bio.length > 0) {
+                          var payload = {
+                            userId: user.userId,
+                            firstName: firstName,
+                            lastName: lastName,
+                            bio: bio,
+                            password: getLocalStorageItem("password"),
+                          }
+                          updateUserDetails(payload).then(
+                            (res) => {
+                              console.log(res);
+                              getUserDetails().then(
+                                (res) => {
+                                  console.log("🚀 ~ useEffect ~ res:", res)
+
+                                  setUser(res);
+                                }
+                              )
+                            }
+                          )
+
+                        }
+                      }}>
                         Save Changes
                       </button>
                     </center>
@@ -127,6 +173,7 @@ const ProfilePage = () => {
                       <input
                         type="password"
                         id="new-password"
+                        onChange={(e) => setOldPassword(e.target.value)}
                         name="new-password"
                         required
                       />
@@ -136,6 +183,7 @@ const ProfilePage = () => {
                       <input
                         type="password"
                         id="new-password"
+                        onChange={(e) => setNewPassword(e.target.value)}
                         name="new-password"
                         required
                       />
@@ -145,11 +193,76 @@ const ProfilePage = () => {
                       <input
                         type="password"
                         id="confirm-password"
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         name="confirm-password"
                         required
                       />
                     </div>
-                    <center><button type="submit" className="btn">
+                    <center><button type="submit" className="btn"
+                      onClick={() => {
+                        if (oldPassword.length > 0 && newPassword.length > 0 && confirmPassword.length > 0) {
+                          if (newPassword === confirmPassword) {
+                            var payload = {
+                              userId: user.userId,
+                              firstName: user.firstName,
+                              lastName: user.lastName,
+                              bio: user.bio,
+                              password: newPassword,
+                            }
+                            updateUserDetails(payload).then(
+                              (res) => {
+                                console.log(res);
+                                getUserDetails().then(
+                                  (res) => {
+                                    console.log("🚀 ~ useEffect ~ res:", res)
+
+                                    setUser(res);
+                                    toast.success('Password changed successfully', {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      progress: undefined,
+                                      theme: "light",
+                                      // transition: Bounce,
+                                    });
+                                  }
+                                )
+                              }
+                            )
+
+                          } else {
+                            toast.error('Password does not match', {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                              // transition: Bounce,
+                            });
+                          }
+
+                        } else {
+                          toast.error('All fields are required', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            // transition: Bounce,
+                          });
+
+                        }
+                      }}
+                    >
                       Change Password
                     </button>
                     </center>
@@ -157,7 +270,7 @@ const ProfilePage = () => {
                 </div>
               </div>
             </div>
-
+            <ToastContainer />
 
           </div>
         </div>

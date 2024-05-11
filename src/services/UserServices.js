@@ -32,3 +32,23 @@ export const getUserDetails = async () => {
         throw error; // Rethrow the error so it can be handled by the caller
     }
 };
+
+
+
+export const updateUserDetails = async (payload) => {
+    console.log("🚀 ~ updateUserDetails ~ payload:", payload)
+    try {
+        const response = await axios.put(`https://localhost:7216/api/user/edit`, payload, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + getLocalStorageItem('token').replace(/"/g, ''),
+            }
+        });
+        console.log(response);
+        return response
+
+    } catch (error) {
+        console.log(error);
+        throw error; // Rethrow the error so it can be handled by the caller
+    }
+}
