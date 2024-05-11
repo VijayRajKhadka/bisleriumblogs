@@ -13,6 +13,15 @@ import RandomBlogs from './Pages/RandomBlogs';
 import PopularBlogs from './Pages/PopularBlogs';
 import NotificationPage from './Pages/Notifications';
 
+
+import Admindashboard from './Pages/Admindashboard';
+import Admins from './Pages/Admin';
+import Addadmin from './Pages/Addadmin';
+import Adminlogin from './Pages/Adminlogin';
+import AdminRegister from './Pages/adminregister';
+
+
+
 const App = () => {
   return (
     <>
@@ -26,9 +35,13 @@ const App = () => {
           <Route path='/random-blogs' element={<RandomBlogs />} />
           <Route path='/popular-blogs' element={<PopularBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
-          <Route path='/profilepage' element={<Profilepage />} />
-          <Route path='/blog-detail/:id' element={<BlogDetails />} />
-          <Route path='/notifications' element={<NotificationPage />} />
+          <Route path='/blog-detail' element={<BlogDetails />} />
+          <Route path="/admindashboard" element={<Admindashboard />} />
+          <Route path='/admin' element={<Admins />} />
+          <Route path='/addadmin' element={<Addadmin />} />
+          <Route path='/loginadmin' element={<Adminlogin />} />
+          <Route path='/registeradmin' element={<AdminRegister />} />
+
         </Routes>
       </BrowserRouter>
     </>
