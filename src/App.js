@@ -10,10 +10,10 @@ import SavedBlogs from './Pages/SavedBlogs';
 import MyBlogs from './Pages/MyBlogs';
 
 
-import Admindashboard from './Pages/Admindashboard';
+import Admindashboard from './Pages/admindashboard';
 import Admins from './Pages/Admin';
-import Addadmin from './Pages/Addadmin';
-import Adminlogin from './Pages/Adminlogin';
+import Addadmin from './Pages/addadmin';
+import Adminlogin from './Pages/adminlogin';
 import AdminRegister from './Pages/adminregister';
 
 
@@ -30,11 +30,11 @@ const App = () => {
           <Route path='/saved' element={<SavedBlogs />} />
           <Route path='/my-blogs' element={<MyBlogs />} />
           <Route path='/blog-detail' element={<BlogDetails />} />
-          <Route path="/admindashboard" element={<Admindashboard/>}/>
-          <Route path='/admin' element={<Admins/>}/>
-          <Route path='/addadmin' element={<Addadmin/>}/>
-          <Route path='/loginadmin' element={<Adminlogin/>}/>
-          <Route path='/registeradmin' element={<AdminRegister/>}/>
+          <Route path="/admindashboard" element={<Admindashboard />} />
+          <Route path='/admin' element={<Admins />} />
+          <Route path='/addadmin' element={<Addadmin />} />
+          <Route path='/loginadmin' element={<Adminlogin />} />
+          <Route path='/registeradmin' element={<AdminRegister />} />
 
         </Routes>
       </BrowserRouter>
