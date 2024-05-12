@@ -24,7 +24,6 @@ export const addBlog = (payload) => {
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + getLocalStorageItem('token').replace(/"/g, "")
-                        // Use global replace (/"/g) to remove all quotes from the token
                     }
                 });
             console.log("🚀 ~ returnnewPromise ~ response:", response)

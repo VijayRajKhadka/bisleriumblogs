@@ -80,7 +80,7 @@ const ProfilePage = () => {
               <br />
 
               <div className="profile-button">
-                <a className="profile-button" onClick={deleteUser} style={{ color: " red" }}>
+                <a className="profile-button"  style={{ color: " red" }}>
                   Delete Account
                 </a>
               </div>
