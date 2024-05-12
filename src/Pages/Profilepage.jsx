@@ -4,10 +4,11 @@ import NavBar from "../Components/NavBar";
 import SideBar from "../Components/SideBar";
 import { getUserDetails, updateUserDetails } from "../services/UserServices";
 import { get } from "firebase/database";
-import { getLocalStorageItem } from "../services/LocalStorageService";
+import { getLocalStorageItem, setLocalStorageItem } from "../services/LocalStorageService";
 import { Toast } from "bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { deleteUser } from "../services/AuthServices";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -29,13 +30,13 @@ const ProfilePage = () => {
     getUserDetails().then(
       (res) => {
         console.log("🚀 ~ useEffect ~ res:", res)
-  
+
         setUser(res);
       }
     )
-}, []);
+  }, []);
 
-   {
+  {
     return (
       <div>
         <NavBar />
@@ -200,41 +201,60 @@ const ProfilePage = () => {
                     </div>
                     <center><button type="submit" className="btn"
                       onClick={() => {
+                        console.log(oldPassword);
+                        console.log(newPassword);
+                        console.log(getLocalStorageItem("password"));
                         if (oldPassword.length > 0 && newPassword.length > 0 && confirmPassword.length > 0) {
-                          if (newPassword === confirmPassword) {
-                            var payload = {
-                              userId: user.userId,
-                              firstName: user.firstName,
-                              lastName: user.lastName,
-                              bio: user.bio,
-                              password: newPassword,
-                            }
-                            updateUserDetails(payload).then(
-                              (res) => {
-                                console.log(res);
-                                getUserDetails().then(
-                                  (res) => {
-                                    console.log("🚀 ~ useEffect ~ res:", res)
+                          if (oldPassword === getLocalStorageItem("password").replace(/['"]+/g, '')) {
 
-                                    setUser(res);
-                                    toast.success('Password changed successfully', {
-                                      position: "top-right",
-                                      autoClose: 5000,
-                                      hideProgressBar: false,
-                                      closeOnClick: true,
-                                      pauseOnHover: true,
-                                      draggable: true,
-                                      progress: undefined,
-                                      theme: "light",
-                                      // transition: Bounce,
-                                    });
-                                  }
-                                )
+                            if (newPassword === confirmPassword) {
+                              var payload = {
+                                userId: user.userId,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                bio: user.bio,
+                                password: newPassword,
                               }
-                            )
+                              updateUserDetails(payload).then(
+                                (res) => {
+                                  console.log(res);
+                                  getUserDetails().then(
+                                    (res) => {
+                                      console.log("🚀 ~ useEffect ~ res:", res)
 
+                                      setUser(res);
+                                      setLocalStorageItem("password", newPassword);
+                                      toast.success('Password changed successfully', {
+                                        position: "top-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "light",
+                                        // transition: Bounce,
+                                      });
+                                    }
+                                  )
+                                }
+                              )
+
+                            } else {
+                              toast.error('Password does not match', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                                // transition: Bounce,
+                              });
+                            }
                           } else {
-                            toast.error('Password does not match', {
+                            toast.error('Old password does not match', {
                               position: "top-right",
                               autoClose: 5000,
                               hideProgressBar: false,
@@ -246,6 +266,7 @@ const ProfilePage = () => {
                               // transition: Bounce,
                             });
                           }
+
 
                         } else {
                           toast.error('All fields are required', {
@@ -271,7 +292,7 @@ const ProfilePage = () => {
               </div>
             </div>
             <ToastContainer />
-            
+
           </div>
         </div>
       </div>

@@ -91,7 +91,7 @@ const PopularBlogs = () => {
                             savedByMe={blog.savedByMe}
                             upvote={blog.upvoteCount}
                             downvote={blog.downvoteCount}
-                            popularity = {blog.popularityScore}
+                            popularity={blog.popularityScore}
 
 
                         />
